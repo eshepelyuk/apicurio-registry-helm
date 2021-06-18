@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/eshepelyuk/apicurio-registry-helm-chart",
+  "title": "Apicurio Registry Helm values",
+
+  "definitions": {
+    "isEnabled": {
+      "type": "boolean", "title": "should be installed" , "default": true
+    },
+    "dockerImage": {
+      "type": "object", "title": "docker image settings",
+      "required": ["registry", "repository", "tag"],
+      "properties": {
+        "registry": {"type": "string", "default": "quay.io"},
+        "repository": {"type": "string"},
+        "tag": {"type": "string"}
+      }
+    },
+    "podResources": {
+      "type": "object", "title": "pod resources",
+      "additionalProperties": false,
+      "properties": {
+        "limits": {
+          "type": "object"
+        },
+        "requests": {
+          "type": "object"
+        }
+      }
+    }
+  },
+
+  "type": "object",
+
+  "properties": {
+    "registry": {
+      "type": "object", "title": "registry settings",
+      "required": ["enabled", "image", "resources"],
+      "properties": {
+        "enabled": {"$ref": "#/definitions/isEnabled"},
+        "image": {"$ref": "#/definitions/dockerImage"},
+        "resources": {"$ref": "#/definitions/podResources"}
+      }
+    },
+    "sync": {
+      "type": "object", "title": "registry content sync settings",
+      "required": ["enabled", "image", "resources"],
+      "properties": {
+        "enabled": {"$ref": "#/definitions/isEnabled"},
+        "image": {"$ref": "#/definitions/dockerImage"},
+        "resources": {"$ref": "#/definitions/podResources"},
+        "registryUrl": {"type": ["null", "string"], "default": null},
+        "watchNamespaces": {"type": ["null", "string"], "default": null}
+      }
+    }
+  }
+}

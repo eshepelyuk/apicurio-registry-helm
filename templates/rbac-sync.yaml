@@ -1,0 +1,42 @@
+{{- if .Values.sync.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "apicurio-registry.name" . }}
+rules:
+  - apiGroups:
+      - apiextensions.k8s.io
+    resources:
+      # the Java operator SDK seems to need listing CRDs
+      - customresourcedefinitions
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - artifact.apicur.io
+    resources:
+      # operator main custom resources
+      - artifacts
+      - artifacts/status
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+      - patch
+      - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "apicurio-registry.name" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "apicurio-registry.name" . }}
+roleRef:
+  kind: Role
+  name: {{ include "apicurio-registry.name" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

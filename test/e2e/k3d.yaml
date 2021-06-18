@@ -1,0 +1,10 @@
+apiVersion: k3d.io/v1alpha2
+kind: Simple
+name: k3d
+options:
+  k3d:
+    wait: true
+    disableLoadbalancer: true
+  k3s:
+    extraServerArgs:
+    - "--disable=metrics-server,servicelb,traefik"

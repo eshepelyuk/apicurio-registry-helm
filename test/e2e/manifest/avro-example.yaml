@@ -1,0 +1,18 @@
+apiVersion: artifact.apicur.io/v1alpha1
+kind: Artifact
+metadata:
+  name: pets-avro-v1
+spec:
+  artifactId: pets-avro-id
+  type: AVRO
+  content: |
+    {"namespace": "example.avro",
+     "type": "record",
+     "name": "Pet",
+     "fields": [
+         {"name": "name", "type": "string"},
+         {"name": "holderId",  "type": ["int", "null"]},
+         {"name": "type", "type": ["string", "null"]}
+     ]
+    }
+

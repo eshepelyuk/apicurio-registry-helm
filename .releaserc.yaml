@@ -1,0 +1,24 @@
+
+branches:
+  - main
+tagFormat: "${version}"
+preset: "conventionalcommits"
+plugins:
+  - '@semantic-release/commit-analyzer'
+  -
+    - "@semantic-release/release-notes-generator"
+    - host: "https://github.com"
+  -
+    - "@semantic-release/git"
+    - assets: []
+      messsage: false
+  -
+    - "@semantic-release/github"
+    - successComment: false
+      failComment: false
+  -
+    - "@semantic-release/exec"
+    - verifyConditionsCmd: "rm -rf *.tgz"
+      prepareCmd: "helm package --version ${nextRelease.version} . && helm chart save apicurio-registry-${nextRelease.version}.tgz ghcr.io/eshepelyuk/apicurio-registry:${nextRelease.version}"
+      publishCmd: "helm chart push ghcr.io/eshepelyuk/apicurio-registry:${nextRelease.version}"
+

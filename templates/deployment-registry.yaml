@@ -1,0 +1,58 @@
+{{- if .Values.registry.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "apicurio-registry.name" . }}
+  labels:
+    {{- include "apicurio-registry-sync.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "apicurio-registry-sync.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: registry
+  template:
+    metadata:
+      labels:
+        {{- include "apicurio-registry-sync.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: registry
+    spec:
+      serviceAccountName: {{ include "apicurio-registry.name" . }}
+      containers:
+        - name: apicurio-registry
+          image: {{ .Values.registry.image.registry }}/{{ .Values.registry.image.repository }}:{{ .Values.registry.image.tag }}
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          env:
+            # - name: K_SINK
+            #   value: http://localhost:8787/events
+            - name: REGISTRY_LOG_LEVEL
+              value: INFO
+            - name: LOG_LEVEL
+              value: INFO
+            - name: QUARKUS_PROFILE
+              value: prod
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8080
+            periodSeconds: 30
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+            periodSeconds: 20
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+          {{- with .Values.registry.resources }}
+          resources:
+            {{ . | toYaml | nindent 12 }}
+          {{- end }}
+{{- end }}

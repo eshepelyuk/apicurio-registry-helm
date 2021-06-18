@@ -1,0 +1,61 @@
+{{- if .Values.sync.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "apicurio-registry.name" . }}-sync
+  labels:
+    {{- include "apicurio-registry-sync.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "apicurio-registry-sync.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: sync
+  template:
+    metadata:
+      labels:
+        {{- include "apicurio-registry-sync.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: sync
+    spec:
+      serviceAccountName: {{ include "apicurio-registry.name" . }}
+      containers:
+        - name: kube-sync
+          image: {{ .Values.sync.image.registry }}/{{ .Values.sync.image.repository }}:{{ .Values.sync.image.tag }}
+          imagePullPolicy: "Always"
+          env:
+            - name: APICURIO_REGISTRY_URL
+              value: {{ coalesce .Values.sync.registryUrl (printf "http://%s:8080/apis/registry/v2" (include "apicurio-registry.name" .)) }}
+            - name: QUARKUS_LOG_LEVEL
+              value: INFO
+            - name: LOG_LEVEL
+              value: DEBUG
+            - name: WATCH_NAMESPACES
+              value: {{ coalesce .Values.sync.watchNamespaces .Release.Namespace }}
+          ports:
+            - containerPort: 8787
+              name: http
+              protocol: TCP
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/live
+              port: 8787
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/ready
+              port: 8787
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          {{- with .Values.sync.resources }}
+          resources:
+            {{ . | toYaml | nindent 12 }}
+          {{- end }}
+{{- end }}

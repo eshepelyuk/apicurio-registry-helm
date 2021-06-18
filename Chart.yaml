@@ -1,0 +1,8 @@
+apiVersion: v2
+name: apicurio-registry
+description: Install and configure Apicurio Registry in Kubernetes.
+type: application
+version: 0.0.0 # actual version is managed by git tag
+appVersion: 0.0.0 # actual version is managed by git tag
+
+home: https://www.apicur.io/registry

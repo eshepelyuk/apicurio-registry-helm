@@ -1,0 +1,26 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: apicurio-registry
+build:
+  artifacts:
+  - image: eshepelyuk/apc-reg-e2e
+    context: ./test/e2e
+  local:
+    push: true
+profiles:
+- name: e2e
+  activation:
+  - command: run
+  - command: dev
+  - command: delete
+  deploy:
+    helm:
+      releases:
+      - name: apc-reg
+        chartPath: .
+        wait: true
+        artifactOverrides:
+          image: eshepelyuk/apc-reg-e2e
+        imageStrategy:
+          helm: {}

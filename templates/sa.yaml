@@ -1,0 +1,8 @@
+{{- if or .Values.registry.enabled .Values.sync.enabled }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "apicurio-registry.name" . }}
+  labels:
+    {{- include "apicurio-registry-sync.labels" . | nindent 4 }}
+{{- end }}

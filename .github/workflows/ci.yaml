@@ -1,0 +1,46 @@
+name: CI workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '*.md'
+      - '*.puml'
+      - '.releaserc.yaml'
+
+jobs:
+  ci_job:
+    name: Continous integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: azure/setup-helm@v1
+        with:
+          version: "3.6.0"
+      - name: helm lint
+        run: |
+          ./test/linter/test.sh
+      - name: start k8s with k3d
+        uses: AbsaOSS/k3d-action@v1.4.0
+        with:
+          cluster-name: "apicurio"
+          use-default-registry: true
+          args: >-
+            --config ./test/e2e/k3d.yaml
+      - uses: volesen/setup-skaffold@v1.1
+        with:
+          version: 'v1.26.0'
+      - name: build e2e tests
+        run: |
+          skaffold config set default-repo "registry.localhost:5000"
+          skaffold build
+      - name: deploy apicurio-registry
+        run: |
+          skaffold run
+      - name: e2e test
+        run: |
+          helm test apc-reg --logs
