@@ -6,9 +6,10 @@
 
 ## Roadmap
 
-* values schema validation
-* improved values schema linter tests
 * support registry deployment with various backend (SQL, kafka, etc)
+* provide post installation validation instructions
+* improve values schema linter tests
+* optionally create Ingress resource
 * contribute and migrate ownership to Apicurio team
 
 Please, suggest more raodmap actions by opening an issue in this project.
@@ -17,9 +18,10 @@ Please, suggest more raodmap actions by opening an issue in this project.
 
 Apicurio Registry chart can be installed only with [Helm 3](https://helm.sh/docs).
 
-The chart is published to public [GitHub Container Registry
+The chart is published to [GitHub Container Registry
 ](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
-It requires enabling [OCI registry support](https://helm.sh/docs/topics/registries/#enabling-oci-support).
+Helm 3 CLI requires enabling [OCI registry support](https://helm.sh/docs/topics/registries/#enabling-oci-support)
+for working with it.
 
 ```sh
 export HELM_EXPERIMENTAL_OCI=1
@@ -27,10 +29,10 @@ export HELM_EXPERIMENTAL_OCI=1
 
 ### Install specific version
 
-Check for the list of all available versions
-at [Release Page](https://github.com/eshepelyuk/apicurio-registry-helm-chart/releases).
+First, find the appropriate version from [available release
+](https://github.com/eshepelyuk/apicurio-registry-helm-chart/releases).
 
-First, retrieve selected chart version to a local directory.
+Then, retrieve selected chart to a local directory using `${VERSION}` choosen.
 
 ```sh
 helm pull oci://ghcr.io/eshepelyuk/apicurio-registry --version ${VERSION}
@@ -38,7 +40,8 @@ helm pull oci://ghcr.io/eshepelyuk/apicurio-registry --version ${VERSION}
 
 The command above should download a file names `apicurio-registry-${VERSION}.tgz`.
 
-Chart is ready to be installed, we suggest to install it into a dedicated namespace.
+After that, chart is ready to be installed (or upgraded),
+we suggest to install it into a dedicated namespace.
 
 ```sh
 helm upgrade -i --wait --create-namespace -n apicurio myreg apicurio-registry-${VERSION}.tgz
