@@ -15,12 +15,6 @@ jobs:
       - uses: azure/setup-helm@v1
         with:
           version: "3.6.0"
-      # - name: docker login
-      #   uses: docker/login-action@v1.10.0
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.repository_owner }}
-      #     password: ${{ secrets.GHCR_TOKEN }}
       - name: helm login
         run: |
           helm registry login ghcr.io -u ${{ github.repository_owner }} -p ${{ secrets.GHCR_TOKEN }}
