@@ -6,7 +6,6 @@
 
 ## Roadmap
 
-* provide post installation validation instructions
 * optionally create `Ingress`
 * OIDC support via [OAuth2 Proxy
 ](https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/oauth_provider/)
@@ -44,6 +43,18 @@ we suggest to install it into a dedicated namespace.
 ```sh
 helm upgrade -i --wait --create-namespace -n apicurio myreg apicurio-registry-${VERSION}.tgz
 ```
+
+## Access Apicuruio Registry UI
+
+1. Forward local port to installed registry instance
+
+```sh
+kubectl port-forward service/myreg-apicurio-registry 8080:8080
+```
+
+2. Open your browser at
+
+    http://localhost:8080
 
 ## Configuration
 
