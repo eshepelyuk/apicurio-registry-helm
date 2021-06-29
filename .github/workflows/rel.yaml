@@ -6,15 +6,12 @@ env:
 jobs:
   rel_job:
     name: Release Job
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: azure/setup-helm@v1
-        with:
-          version: "3.6.0"
       - name: helm login
         run: |
           helm registry login ghcr.io -u ${{ github.repository_owner }} -p ${{ secrets.GHCR_TOKEN }}
