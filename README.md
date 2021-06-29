@@ -6,13 +6,12 @@
 
 ## Roadmap
 
-* support registry deployment with various backend (SQL, kafka, etc)
 * provide post installation validation instructions
+* optionally create `Ingress`
 * improve values schema linter tests
-* optionally create Ingress resource
 * contribute and migrate ownership to Apicurio team
 
-Please, suggest more raodmap actions by opening an issue in this project.
+Please, suggest more roadmap actions by opening an issue in this project.
 
 ## Installation
 
