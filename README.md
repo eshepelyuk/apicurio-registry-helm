@@ -15,29 +15,26 @@ Please, suggest more roadmap actions by opening an issue in this project.
 
 ## Installation
 
-Apicurio Registry chart can be installed only with [Helm 3](https://helm.sh/docs).
-
 The chart is published to [GitHub Container Registry
-](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
-Helm 3 CLI requires enabling [OCI registry support](https://helm.sh/docs/topics/registries/#enabling-oci-support)
-for working with it.
+](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
+and can be installed only with [Helm 3](https://helm.sh/docs).
+
+Helm 3 CLI requires enabling [OCI registry support](https://helm.sh/docs/topics/registries/#enabling-oci-support).
 
 ```sh
 export HELM_EXPERIMENTAL_OCI=1
 ```
 
-### Install specific version
+First, find the appropriate version from [available releases
+](https://github.com/eshepelyuk/apicurio-registry-helm-chart/releases) list.
 
-First, find the appropriate version from [available release
-](https://github.com/eshepelyuk/apicurio-registry-helm-chart/releases).
-
-Then, retrieve selected chart to a local directory using `${VERSION}` choosen.
+Then, download the chart with choosen `${VERSION}` to a local directory.
 
 ```sh
 helm pull oci://ghcr.io/eshepelyuk/apicurio-registry --version ${VERSION}
 ```
 
-The command above should download a file names `apicurio-registry-${VERSION}.tgz`.
+The command above will download a file named `apicurio-registry-${VERSION}.tgz`.
 
 After that, chart is ready to be installed (or upgraded),
 we suggest to install it into a dedicated namespace.
@@ -46,3 +43,9 @@ we suggest to install it into a dedicated namespace.
 helm upgrade -i --wait --create-namespace -n apicurio myreg apicurio-registry-${VERSION}.tgz
 ```
 
+## Configuration
+
+Chart parameters can be configured via [Helm values files](https://helm.sh/docs/chart_template_guide/values_files/).
+
+Check out [values.yaml](./values.yaml) and [values.schema.json](./values.schema.json)
+for the available configuration options.
