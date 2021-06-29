@@ -70,8 +70,7 @@
         "enabled": {"$ref": "#/definitions/isEnabled"},
         "image": {"$ref": "#/definitions/dockerImage"},
         "resources": {"$ref": "#/definitions/podResources"},
-        "registryUrl": {"type": ["null", "string"], "default": null},
-        "watchNamespaces": {"type": ["null", "string"], "default": null}
+        "registryUrl": {"type": ["null", "string"], "default": null}
       }
     }
   }

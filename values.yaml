@@ -30,7 +30,6 @@ sync:
     repository: "apicurio/apicurio-registry-kube-sync"
     tag: "latest-snapshot"
   # registryUrl:
-  # watchNamespaces:
   resources: {}
     # limits:
     #   cpu: 500m

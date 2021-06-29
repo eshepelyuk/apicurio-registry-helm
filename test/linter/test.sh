@@ -20,11 +20,6 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-helm lint . --strict --set 'sync.watchNamespaces=null'
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-
 helm lint . --strict --set 'registry.kafka.bootstrapServers=kafka1'
 if [ $? -ne 0 ]; then
   exit 1
