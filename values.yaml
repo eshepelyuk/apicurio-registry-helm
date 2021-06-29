@@ -1,8 +1,19 @@
 registry:
   enabled: true
+
+  ## uncomment and adjust for kafka persistence
+  # kafka:
+  #   bootstrapServers: kafka1:9092,kafka2:9092
+
+  ## uncomment and adjust for sql persistence
+  # sql:
+  #   url: jdbc:postgresql://postgres/apicurio-registry
+  #   username: apicurio
+  #   password: apicurio-password
+
   image:
     registry: "quay.io"
-    repository: "apicurio/apicurio-registry-mem"
+    repository: "apicurio/apicurio-registry"
     tag: "2.0.0.Final"
   resources: {}
     # limits:

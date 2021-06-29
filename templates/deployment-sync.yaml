@@ -18,7 +18,7 @@ spec:
     spec:
       serviceAccountName: {{ include "apicurio-registry.name" . }}
       containers:
-        - name: kube-sync
+        - name: artf-sync
           image: {{ .Values.sync.image.registry }}/{{ .Values.sync.image.repository }}:{{ .Values.sync.image.tag }}
           imagePullPolicy: "Always"
           env:
