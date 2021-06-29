@@ -62,3 +62,9 @@ Chart parameters can be configured via [Helm values files](https://helm.sh/docs/
 
 Check out [values.yaml](./values.yaml) and [values.schema.json](./values.schema.json)
 for the available configuration options.
+
+
+== Contribution
+
+Your contributions like feature suggesstions, bug reports and pull requests are always welcomed.
+Please check [CONTRIBUTING page](./CONTRIBUTING.adoc) for details.
