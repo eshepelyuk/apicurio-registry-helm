@@ -17,6 +17,7 @@ maintainers:
     url: https://github.com/eshepelyuk
 
 keywords:
+  - apicurio
   - schema-registry
   - kafka
   - kubernetes
