@@ -10,7 +10,6 @@
 * OIDC support via [OAuth2 Proxy
 ](https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/oauth_provider/)
 * improve values schema linter tests
-* contribute and migrate ownership to Apicurio team
 
 Please, suggest more roadmap actions by opening an issue in this project.
 
