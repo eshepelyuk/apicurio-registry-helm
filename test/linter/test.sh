@@ -40,6 +40,21 @@ if [ $? -eq 0 ]; then
   exit 1
 fi
 
+helm lint . --strict --set 'registry.extraEnv[0].name=qwe,registry.extraEnv[0].value=zzz'
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set 'registry.extraEnv[0].name=qwe'
+if [ $? -eq 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set 'registry.extraEnv[0].name=qwe,registry.extraEnv[0].value=123'
+if [ $? -eq 0 ]; then
+  exit 1
+fi
+
 echo "=================================================================================="
 echo "                                LINT PASSED"
 echo "=================================================================================="

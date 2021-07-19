@@ -45,6 +45,14 @@
           "password": {"type": "string"}
         }
       }
+    },
+    "keyValue": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "value"],
+      "properties": {
+        "name": { "type": "string"},
+        "value": {"type": "string"}
+      }
     }
   },
 
@@ -60,7 +68,7 @@
         "image": {"$ref": "#/definitions/dockerImage"},
         "extraEnv": {
           "type": "array", "default": [],
-          "items": {"type": "object"}
+          "items": {"$ref": "#/definitions/keyValue"}
         },
         "resources": {"$ref": "#/definitions/podResources"},
         "kafka": {"$ref": "#/definitions/persistence/kafka"},
