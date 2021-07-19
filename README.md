@@ -1,6 +1,6 @@
 # Ultimate Helm chart for Apicurio Registry
 
-![example workflow](https://github.com/eshepelyuk/apicurio-registry-helm/actions/workflows/ci.yaml/badge.svg)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/eshepelyuk/apicurio-registry-helm/CI?style=for-the-badge)
 [![Current](https://img.shields.io/github/v/tag/eshepelyuk/apicurio-registry-helm?logo=github&sort=semver&style=for-the-badge&label=current)](https://github.com/eshepelyuk/apicurio-registry-helm/releases/latest)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/apicurio-registry-helm&style=for-the-badge)](https://artifacthub.io/packages/helm/apicurio-registry-helm/apicurio-registry)
 [![MIT License](https://img.shields.io/github/license/eshepelyuk/cmak-operator?logo=mit&style=for-the-badge)](https://opensource.org/licenses/MIT)
