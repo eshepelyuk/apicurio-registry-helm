@@ -1,5 +1,7 @@
 # Ultimate Helm chart for Apicurio Registry
 
+[![MIT License](https://img.shields.io/github/license/eshepelyuk/cmak-operator?logo=mit&style=for-the-badge)](https://opensource.org/licenses/MIT)
+
 * [Apicurio Registry](https://www.apicur.io/registry/)
 * [Apicurio Registry GitHub](https://github.com/apicurio/apicurio-registry)
 * [Apicurio Registry sync operator GitHub](https://github.com/Apicurio/apicurio-registry-content-sync-operator)
