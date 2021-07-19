@@ -8,14 +8,6 @@ icon: https://design.jboss.org/apicurio/logo/logofiles/apicurio_icon_lightbkg_co
 
 home: https://github.com/eshepelyuk/apicurio-registry-helm
 
-artifacthub.io/links: |
-  - name: Apicurio Registry Site
-    url: https://www.apicur.io/registry/
-  - name: Apicurio Registry source
-    url: https://github.com/apicurio/apicurio-registry
-  - name: Apicurio Registry content sync source
-    url: https://github.com/Apicurio/apicurio-registry-content-sync-operator
-
 maintainers:
   - name: Ievgenii Shepeliuk
     email: eshepelyuk@gmail.com
@@ -32,32 +24,41 @@ keywords:
   - asyncapi
   - swagger
 
-artifacthub.io/crds: |
-  - kind: Artifact
-    version: v1
-    name: artifact
-    displayName: Artifact
-    description: Description of registry artifact
+annotations:
+  artifacthub.io/links: |
+    - name: Apicurio Registry Site
+      url: https://www.apicur.io/registry/
+    - name: Apicurio Registry source
+      url: https://github.com/apicurio/apicurio-registry
+    - name: Apicurio Registry content sync source
+      url: https://github.com/Apicurio/apicurio-registry-content-sync-operator
 
-artifacthub.io/crdsExamples: |
-  - apiVersion: artifact.apicur.io/v1alpha1
-    kind: Artifact
-    metadata:
-      name: pets-avro-example-v1
-    spec:
-      artifactId: pets-avro-record
-      name: pets-avro
-      description: "super pets avro"
-      type: AVRO
-      state: ENABLED
-      content: |
-        {"namespace": "example.avro",
-         "type": "record",
-         "name": "Pet",
-         "fields": [
-             {"name": "name", "type": "string"},
-             {"name": "holderId",  "type": ["int", "null"]},
-             {"name": "type", "type": ["string", "null"]}
-         ]
-        }
+  artifacthub.io/crds: |
+    - kind: Artifact
+      version: v1
+      name: artifact
+      displayName: Artifact
+      description: Description of registry artifact
+
+  artifacthub.io/crdsExamples: |
+    - apiVersion: artifact.apicur.io/v1alpha1
+      kind: Artifact
+      metadata:
+        name: pets-avro-example-v1
+      spec:
+        artifactId: pets-avro-record
+        name: pets-avro
+        description: "super pets avro"
+        type: AVRO
+        state: ENABLED
+        content: |
+          {"namespace": "example.avro",
+           "type": "record",
+           "name": "Pet",
+           "fields": [
+               {"name": "name", "type": "string"},
+               {"name": "holderId",  "type": ["int", "null"]},
+               {"name": "type", "type": ["string", "null"]}
+           ]
+          }
 
