@@ -4,6 +4,7 @@ description: Install and configure Apicurio Registry in Kubernetes.
 type: application
 version: 0.0.0 # actual version is managed by git tag
 appVersion: 0.0.0 # actual version is managed by git tag
+
 icon: https://design.jboss.org/apicurio/logo/logofiles/apicurio_icon_lightbkg_color.svg
 
 home: https://github.com/eshepelyuk/apicurio-registry-helm
