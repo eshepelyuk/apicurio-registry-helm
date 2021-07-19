@@ -1,6 +1,6 @@
 # Ultimate Helm chart for Apicurio Registry
 
-[![Current](https://img.shields.io/github/v/tag/eshepelyuk/cmak-operator?logo=github&sort=semver&style=for-the-badge&label=current)](https://github.com/eshepelyuk/apicurio-registry-helm/releases/latest)
+[![Current](https://img.shields.io/github/v/tag/eshepelyuk/apicurio-registry-helm?logo=github&sort=semver&style=for-the-badge&label=current)](https://github.com/eshepelyuk/apicurio-registry-helm/releases/latest)
 [![MIT License](https://img.shields.io/github/license/eshepelyuk/cmak-operator?logo=mit&style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 * [Apicurio Registry](https://www.apicur.io/registry/)
