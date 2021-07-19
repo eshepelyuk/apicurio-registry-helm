@@ -58,6 +58,10 @@
       "properties": {
         "enabled": {"$ref": "#/definitions/isEnabled"},
         "image": {"$ref": "#/definitions/dockerImage"},
+        "extraEnv": {
+          "type": "array", "default": [],
+          "items": {"type": "object"}
+        },
         "resources": {"$ref": "#/definitions/podResources"},
         "kafka": {"$ref": "#/definitions/persistence/kafka"},
         "sql": {"$ref": "#/definitions/persistence/sql"}

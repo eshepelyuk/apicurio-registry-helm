@@ -43,6 +43,9 @@ spec:
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: {{ .Values.registry.kafka.bootstrapServers }}
             {{- end }}
+            {{- with .Values.registry.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /health/live
