@@ -4,21 +4,21 @@ kind: Deployment
 metadata:
   name: {{ include "apicurio-registry.name" . }}-sync
   labels:
-    {{- include "apicurio-registry-sync.labels" . | nindent 4 }}
+    {{- include "apicurio-registry.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "apicurio-registry-sync.selectorLabels" . | nindent 6 }}
+      {{- include "apicurio-registry.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: sync
   template:
     metadata:
       labels:
-        {{- include "apicurio-registry-sync.selectorLabels" . | nindent 8 }}
+        {{- include "apicurio-registry.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: sync
     spec:
       serviceAccountName: {{ include "apicurio-registry.name" . }}
       containers:
-        - name: artf-sync
+        - name: sync
           image: {{ .Values.sync.image.registry }}/{{ .Values.sync.image.repository }}:{{ .Values.sync.image.tag }}
           imagePullPolicy: "Always"
           env:

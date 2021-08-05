@@ -5,7 +5,7 @@ kind: Ingress
 metadata:
   name: {{ include "apicurio-registry.name" . }}
   labels:
-    {{- include "apicurio-registry-sync.labels" . | nindent 4 }}
+    {{- include "apicurio-registry.labels" . | nindent 4 }}
     {{- with $ing.labels }}
     {{- . | toYaml | nindent 4 }}
     {{- end }}

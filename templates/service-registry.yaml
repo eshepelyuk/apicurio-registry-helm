@@ -3,11 +3,11 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    {{- include "apicurio-registry-sync.labels" . | nindent 4 }}
+    {{- include "apicurio-registry.labels" . | nindent 4 }}
   name: {{ include "apicurio-registry.name" . }}
 spec:
   selector:
-    {{- include "apicurio-registry-sync.selectorLabels" . | nindent 4 }}
+    {{- include "apicurio-registry.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: registry
   ports:
     - name: http
