@@ -9,14 +9,6 @@
 * [Apicurio Registry GitHub](https://github.com/apicurio/apicurio-registry)
 * [Apicurio Registry sync operator GitHub](https://github.com/Apicurio/apicurio-registry-content-sync-operator)
 
-## Roadmap
-
-* optionally create `Ingress`
-* OIDC support via [OAuth2 Proxy](https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/oauth_provider/)
-or [Gatekeeper](https://github.com/gogatekeeper/gatekeeper)
-
-Please, suggest more roadmap actions by opening an issue in this project.
-
 ## Installation
 
 The chart is published to [GitHub Container Registry
@@ -63,9 +55,8 @@ kubectl port-forward service/myreg-apicurio-registry 8080:8080
 
 Chart parameters can be configured via [Helm values files](https://helm.sh/docs/chart_template_guide/values_files/).
 
-Check out [values.yaml](./values.yaml) and [values.schema.json](./values.schema.json)
+Check out [values schema](https://artifacthub.io/packages/helm/apicurio-registry-helm/apicurio-registry?modal=values-schema)
 for the available configuration options.
-
 
 ## Contribution
 
