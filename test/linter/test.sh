@@ -55,6 +55,21 @@ if [ $? -eq 0 ]; then
   exit 1
 fi
 
+helm lint . --strict --set registry.ingress.enabled=true --set registry.ingress.tls=true
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set registry.ingress.enabled=true --set registry.ingress.path=null
+if [ $? -eq 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set registry.ingress.enabled=true --set registry.ingress.host=null
+if [ $? -eq 0 ]; then
+  exit 1
+fi
+
 echo "=================================================================================="
 echo "                                LINT PASSED"
 echo "=================================================================================="

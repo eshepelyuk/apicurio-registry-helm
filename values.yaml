@@ -17,6 +17,8 @@ registry:
     tag: "2.0.0.Final"
   # list of name, value pairs of extra environment vars
   extraEnv: []
+    # - name: SOME_ENV
+    #   value: SOME_VALUE
   resources: {}
     # limits:
     #   cpu: 1000m
@@ -24,6 +26,14 @@ registry:
     # requests:
     #   cpu: 200m
     #   memory: 600Mi
+
+  ingress:
+    enabled: false
+    host: "apicurio.local"
+    path: "/"
+    tls: false
+    annotations: {}
+    labels: {}
 
 sync:
   enabled: true
