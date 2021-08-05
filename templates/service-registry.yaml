@@ -10,7 +10,8 @@ spec:
     {{- include "apicurio-registry-sync.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: registry
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       protocol: TCP
       targetPort: 8080
 {{- end }}
