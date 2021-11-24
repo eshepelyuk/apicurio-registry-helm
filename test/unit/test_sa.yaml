@@ -1,0 +1,23 @@
+suite: test sa
+templates:
+  - sa.yaml
+tests:
+  - it: registry enabled
+    set:
+      registry.enabled: true
+    asserts:
+      - isKind:
+          of: ServiceAccount
+  - it: sync enabled
+    set:
+      sync.enabled: true
+    asserts:
+      - isKind:
+          of: ServiceAccount
+  - it: registry + sync disabled
+    set:
+      registry.enabled: false
+      sync.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
