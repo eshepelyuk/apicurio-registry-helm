@@ -15,12 +15,16 @@ on:
 jobs:
   ci_job:
     name: Continous integration
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: helm lint
         run: |
           ./test/linter/test.sh
+      - name: unit test
+        run: |
+          helm plugin install https://github.com/quintush/helm-unittest
+          helm unittest -f test/unit/*.yaml -3 .
       - name: start k8s with k3d
         uses: AbsaOSS/k3d-action@v1.5.0
         with:
