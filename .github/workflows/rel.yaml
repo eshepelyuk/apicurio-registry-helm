@@ -1,22 +1,18 @@
 name: Release
 on:
   workflow_dispatch
-env:
-  HELM_EXPERIMENTAL_OCI: 1
 jobs:
   rel_job:
-    name: Release Job
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: helm login
-        run: |
-          helm registry login ghcr.io -u ${{ github.repository_owner }} -p ${{ secrets.GHCR_TOKEN }}
       - uses: bahmutov/npm-install@v1.7.7
       - name: semantic-release
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GHCR_TOKEN }}
+          HELM_EXPERIMENTAL_OCI: 1
+          REGISTRY_USERNAME: ${{ github.repository_owner }}
+          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
