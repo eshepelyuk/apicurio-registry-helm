@@ -40,7 +40,7 @@ sync:
   image:
     registry: "quay.io"
     repository: "apicurio/apicurio-registry-kube-sync"
-    tag: "latest-snapshot"
+    tag: "5d7d10b"
   # registryUrl:
   resources: {}
     # limits:
