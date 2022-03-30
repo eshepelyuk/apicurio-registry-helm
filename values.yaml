@@ -14,7 +14,7 @@ registry:
   image:
     registry: "quay.io"
     repository: "apicurio/apicurio-registry"
-    tag: "2.1.5.Final"
+    tag: "2.2.2.Final"
   # list of name, value pairs of extra environment vars
   extraEnv: []
     # - name: SOME_ENV
@@ -40,7 +40,7 @@ sync:
   image:
     registry: "quay.io"
     repository: "apicurio/apicurio-registry-kube-sync"
-    tag: "5d7d10b"
+    tag: "7995e9c"
   # registryUrl:
   resources: {}
     # limits:
