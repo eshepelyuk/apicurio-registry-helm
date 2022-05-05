@@ -1,6 +1,8 @@
 {{- if .Values.registry.ingress.enabled -}}
+{{- $apiIsStable := eq (include "apicurio-registry.ingress.isStable" .) "true" -}}
+{{- $ingressSupportsPathType := eq (include "apicurio-registry.ingress.supportsPathType" .) "true" -}}
 {{ $ing := .Values.registry.ingress }}
-apiVersion: networking.k8s.io/v1
+apiVersion: {{ include "apicurio-registry.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ include "apicurio-registry.name" . }}
@@ -25,10 +27,17 @@ spec:
       http:
         paths:
           - path: {{ $ing.path }}
+            {{- if $ingressSupportsPathType }}
             pathType: ImplementationSpecific
+            {{- end }}          
             backend:
+              {{- if $apiIsStable }}
               service:
                 name: {{ include "apicurio-registry.name" . }}
                 port:
-                  name: http
+                  number: http
+              {{- else }}
+              serviceName: {{ include "apicurio-registry.name" . }}
+              servicePort: http
+              {{- end }}            
 {{- end }}
