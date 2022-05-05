@@ -35,7 +35,7 @@ spec:
               service:
                 name: {{ include "apicurio-registry.name" . }}
                 port:
-                  number: http
+                  name: http
               {{- else }}
               serviceName: {{ include "apicurio-registry.name" . }}
               servicePort: http
