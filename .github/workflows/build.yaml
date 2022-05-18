@@ -26,13 +26,12 @@ jobs:
           version: v1.38.0
       - uses: extractions/setup-just@v1
       - run: just test
-      - uses: AbsaOSS/k3d-action@v1.5.0
+      - uses: rinx/setup-k3d@v0.0.4
         with:
-          cluster-name: "k3d"
-          use-default-registry: true
-          args: >-
-            --config ./test/e2e/k3d.yaml
-      - run: |
-          skaffold config set default-repo "registry.localhost:5000"
-      - run: skaffold run
-      - run: helm test apc-reg --logs
+          skipClusterCreation: true
+      - run: just k3d
+      - run: pip install httpie
+      - run: just test-e2e
+      - if: ${{ failure() }}
+        run: |
+          kubectl logs -l app.kubernetes.io/name=apicurio-registry --tail=-1

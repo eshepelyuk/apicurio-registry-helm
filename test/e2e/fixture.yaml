@@ -2,6 +2,8 @@ apiVersion: artifact.apicur.io/v1alpha1
 kind: Artifact
 metadata:
   name: pets-avro-v1
+  labels:
+    apcrg/e2e: "true"
 spec:
   artifactId: pets-avro-id
   type: AVRO

@@ -4,13 +4,12 @@
 .idea/
 *.tmproj
 .vscode/
-venv
+.venv
 *.tgz
 .github
 *.py
 *.adoc
 *.txt
-.release-it.json
 *.adoc
 skaffold.yaml
 values-lint.yaml

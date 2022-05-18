@@ -1,10 +1,24 @@
-apiVersion: k3d.io/v1alpha2
+apiVersion: k3d.io/v1alpha4
 kind: Simple
-name: k3d
+metadata:
+  name: apcrg
+servers: 1
+agents: 0
+registries:
+  create:
+    name: apcrg-registry
+    host: "0.0.0.0"
+    hostPort: "5000"
+  config: |
+    mirrors:
+      "localhost:5000":
+        endpoint:
+          - http://apcrg-registry:5000
+ports:
+  - port: 18080:80
+    nodeFilters: ["server:*"]
 options:
-  k3d:
-    wait: true
-    disableLoadbalancer: true
   k3s:
-    extraServerArgs:
-    - "--disable=metrics-server,servicelb,traefik"
+    extraArgs:
+      - arg: "--disable=local-storage,metrics-server"
+        nodeFilters: ["server:*"]
