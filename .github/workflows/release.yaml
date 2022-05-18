@@ -1,4 +1,4 @@
-name: Release
+name: Publish release
 on:
   workflow_dispatch
 jobs:
@@ -8,11 +8,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: bahmutov/npm-install@v1.7.7
-      - name: semantic-release
-        run: npx semantic-release
+      - uses: bahmutov/npm-install@v1
+      - run: npx semantic-release
         env:
-          HELM_EXPERIMENTAL_OCI: 1
-          REGISTRY_USERNAME: ${{ github.repository_owner }}
+          REGISTRY_USERNAME: ${{ github.actor }}
           REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

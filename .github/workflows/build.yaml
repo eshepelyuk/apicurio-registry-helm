@@ -1,4 +1,4 @@
-name: Continous integration
+name: Build
 on:
   pull_request:
     branches:
@@ -9,14 +9,22 @@ on:
     paths-ignore:
       - '*.md'
       - '*.puml'
+      - '.github/workflows/release.yaml'
 jobs:
-  ci_job:
+  build_job:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: bahmutov/npm-install@v1.7.7
-      - run: |
-          npx semantic-release -p semantic-release-commitlint
+        with:
+          fetch-depth: 20
+      - uses: wagoid/commitlint-github-action@v4
+        with:
+          configFile: .commitlintrc.yml
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: volesen/setup-skaffold@v1.1
+        with:
+          version: v1.38.0
+      - uses: extractions/setup-just@v1
       - run: ./test/linter/test.sh
       - run: |
           helm plugin install https://github.com/quintush/helm-unittest
@@ -27,9 +35,6 @@ jobs:
           use-default-registry: true
           args: >-
             --config ./test/e2e/k3d.yaml
-      - uses: volesen/setup-skaffold@v1.1
-        with:
-          version: 'v1.33.0'
       - run: |
           skaffold config set default-repo "registry.localhost:5000"
       - run: skaffold run

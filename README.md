@@ -11,33 +11,18 @@
 
 ## Installation
 
-The chart is published to [GitHub Container Registry
-](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
-and can be installed only with [Helm 3](https://helm.sh/docs).
+`apicurio-registry` chart is published into OCI compatible registry
+and requires Helm version >= 3.8.
 
-Helm 3 CLI requires enabling [OCI registry support](https://helm.sh/docs/topics/registries/#enabling-oci-support).
-
-```sh
-export HELM_EXPERIMENTAL_OCI=1
-```
-
-First, find the appropriate version from [available releases
-](https://github.com/eshepelyuk/apicurio-registry-helm-chart/releases) list.
-
-Then, download the chart with choosen `${VERSION}` to a local directory.
+It's recommended to install Apicurio Registry into a dedicated namespace.
+To install specific `VERSION` use following command.
 
 ```sh
-helm pull oci://ghcr.io/eshepelyuk/apicurio-registry --version ${VERSION}
+helm upgrade -i --wait --create-namespace -n apicurio apicurio-registry \
+  oci://ghcr.io/eshepelyuk/helm/apicurio-registry --version <VERSION>
 ```
 
-The command above will download a file named `apicurio-registry-${VERSION}.tgz`.
-
-After that, chart is ready to be installed (or upgraded),
-we suggest to install it into a dedicated namespace.
-
-```sh
-helm upgrade -i --wait --create-namespace -n apicurio myreg apicurio-registry-${VERSION}.tgz
-```
+To install the latest version - omit `--version` flag from previous command.
 
 ## Access Apicuruio Registry UI
 

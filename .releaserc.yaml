@@ -1,12 +1,14 @@
 branches:
   - main
+
 tagFormat: "${version}"
+
+preset: "conventionalcommits"
+
 plugins:
-  - '@semantic-release/commit-analyzer'
-  - 'semantic-release-commitlint'
-  -
-    - "@semantic-release/release-notes-generator"
-    - preset: "conventionalcommits"
+  - "@semantic-release/commit-analyzer"
+  - "semantic-release-commitlint"
+  - "@semantic-release/release-notes-generator"
   -
     - "@semantic-release/git"
     - assets: []
@@ -17,5 +19,5 @@ plugins:
       failComment: false
   -
     - '@eshepelyuk/semantic-release-helm-oci'
-    - registry: oci://ghcr.io/ghcr.io/eshepelyuk
+    - registry: oci://ghcr.io/eshepelyuk/helm
       skipAppVersion: true
