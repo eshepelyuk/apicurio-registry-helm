@@ -54,6 +54,13 @@
         "value": {"type": "string"}
       }
     },
+    "service": {
+      "type": "object", "title": "service resource for registry",
+      "require": ["type"],
+      "properties": {
+        "type": {"type": "string", "default": "ClusterIP", "title": "service type"}
+      }
+    },
     "ingress": {
       "type": "object", "title": "ingress resource for registry",
       "required": ["enabled", "host", "path"],
@@ -61,6 +68,7 @@
         "enabled": {"type": "boolean", "default": false, "title": "enable ingress resource"},
         "host": {"type": "string", "default": "apicurio.local", "title": "hostname"},
         "path": {"type": "string", "default": "/", "title": "ingress path"},
+        "pathType": {"type": "string", "default": "ImplementationSpecific", "title": "ingress path type"},
         "tls": {"type": "boolean", "default": false, "title": "enable TLS for ingress host",
             "description": "if TLS enabled the certificate is retrieved from secret with the same name as ingress host"},
         "annotations": {"type": "object", "default": {}, "title": "ingress resource annotations"},
@@ -84,8 +92,15 @@
           "items": {"$ref": "#/definitions/keyValue"}
         },
         "resources": {"$ref": "#/definitions/podResources"},
+        "nodeSelector": {"type": "object", "title": "pod node selector"},
+        "affinity": {"type": "object", "title": "pod affinity"},
+        "tolerations": {
+          "type": "array", "default": [],
+          "items": {"type": "object", "title": "pod tolerations"}
+        },
         "kafka": {"$ref": "#/definitions/persistence/kafka"},
         "sql": {"$ref": "#/definitions/persistence/sql"},
+        "service": {"$ref": "#/definitions/service"},
         "ingress": {"$ref": "#/definitions/ingress"}
       }
     },
