@@ -2,13 +2,13 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRouteTCP
 metadata:
-  name: {{ include "apicurio-registry.name" . }}
+  name: {{ include "apicurio-registry.fullname" . }}
 spec:
   entryPoints:
     - web
   routes:
     - match: HostSNI(`*`)
       services:
-        - name: {{ include "apicurio-registry.name" . }}
+        - name: {{ include "apicurio-registry.fullname" . }}
           port: 8080
 {{- end }}

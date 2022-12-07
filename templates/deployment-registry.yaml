@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "apicurio-registry.name" . }}
+  name: {{ include "apicurio-registry.fullname" . }}
   labels:
     {{- include "apicurio-registry.labels" . | nindent 4 }}
 spec:
@@ -16,7 +16,7 @@ spec:
         {{- include "apicurio-registry.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: registry
     spec:
-      serviceAccountName: {{ include "apicurio-registry.name" . }}
+      {{ include "apicurio-registry.serviceAccount" $ }}
       containers:
         - name: registry
           image: {{ include "apicurio-registry.image" .Values.registry }}
@@ -68,4 +68,16 @@ spec:
           resources:
             {{ . | toYaml | nindent 12 }}
           {{- end }}
+      {{- with .Values.registry.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.registry.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.registry.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
 {{- end }}

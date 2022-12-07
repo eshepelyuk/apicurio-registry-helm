@@ -4,7 +4,7 @@ kind: Service
 metadata:
   labels:
     {{- include "apicurio-registry.labels" . | nindent 4 }}
-  name: {{ include "apicurio-registry.name" . }}
+  name: {{ include "apicurio-registry.fullname" . }}
 spec:
   selector:
     {{- include "apicurio-registry.selectorLabels" . | nindent 4 }}
@@ -14,4 +14,5 @@ spec:
       port: 8080
       protocol: TCP
       targetPort: 8080
+  type: {{ .Values.registry.service.type }}
 {{- end }}

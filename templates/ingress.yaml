@@ -3,7 +3,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "apicurio-registry.name" . }}
+  name: {{ include "apicurio-registry.fullname" . }}
   labels:
     {{- include "apicurio-registry.labels" . | nindent 4 }}
     {{- with $ing.labels }}
@@ -25,10 +25,10 @@ spec:
       http:
         paths:
           - path: {{ $ing.path }}
-            pathType: ImplementationSpecific
+            pathType: {{ $ing.pathType }}
             backend:
               service:
-                name: {{ include "apicurio-registry.name" . }}
+                name: {{ include "apicurio-registry.fullname" . }}
                 port:
                   name: http
 {{- end }}

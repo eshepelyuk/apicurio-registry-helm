@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "apicurio-registry.name" . }}-sync
+  name: {{ include "apicurio-registry.fullname" . }}-sync
   labels:
     {{- include "apicurio-registry.labels" . | nindent 4 }}
 spec:
@@ -16,14 +16,14 @@ spec:
         {{- include "apicurio-registry.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: sync
     spec:
-      serviceAccountName: {{ include "apicurio-registry.name" . }}
+      {{ include "apicurio-registry.serviceAccount" $ }}
       containers:
         - name: sync
           image: {{ .Values.sync.image.registry }}/{{ .Values.sync.image.repository }}:{{ .Values.sync.image.tag }}
           imagePullPolicy: "Always"
           env:
             - name: APICURIO_REGISTRY_URL
-              value: {{ coalesce .Values.sync.registryUrl (printf "http://%s:8080/apis/registry/v2" (include "apicurio-registry.name" .)) }}
+              value: {{ coalesce .Values.sync.registryUrl (printf "http://%s:8080/apis/registry/v2" (include "apicurio-registry.fullname" .)) }}
             - name: QUARKUS_LOG_LEVEL
               value: INFO
             - name: LOG_LEVEL
@@ -58,4 +58,16 @@ spec:
           resources:
             {{ . | toYaml | nindent 12 }}
           {{- end }}
+      {{- with .Values.sync.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.sync.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.sync.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
 {{- end }}
