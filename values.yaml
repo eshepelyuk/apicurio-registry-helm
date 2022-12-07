@@ -2,8 +2,11 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  create: false
-  name:
+  create: true
+  name: ""
+
+rbac:
+  create: true
 
 registry:
   enabled: true
