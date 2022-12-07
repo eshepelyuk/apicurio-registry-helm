@@ -46,5 +46,6 @@ for the available configuration options.
 ## Contribution
 
 Your contributions like feature suggesstions, bug reports and pull requests are always welcomed.
-Please check [CONTRIBUTING page](./CONTRIBUTING.adoc) for details.
+
+Please check [CONTRIBUTING](./CONTRIBUTING.md) guide for details.
 
