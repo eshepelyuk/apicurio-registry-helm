@@ -39,7 +39,7 @@ and provide new PR, we recommend following.
 1. Add this project as a new remote named `upstream`.
 
     ```sh
-    git remote add upstream https://github.com/eshepelyuk/cmak-operator.git
+    git remote add upstream https://github.com/eshepelyuk/apicurio-registry-helm.git
     git fetch upstream
     ```
 
@@ -60,7 +60,7 @@ and provide new PR, we recommend following.
 
     ```sh
     git fetch upstream
-    git rebase -i upstream/maain
+    git rebase -i upstream/main
     ```
     During rebase, make your PR to be comprised of a single commit,
     unless, you _really_ want to provide multiple commits via single PR.
