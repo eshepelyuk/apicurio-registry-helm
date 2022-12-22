@@ -25,6 +25,8 @@ jobs:
         with:
           version: v1.38.0
       - uses: extractions/setup-just@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: just test
       - uses: rinx/setup-k3d@v0.0.4
         with:
