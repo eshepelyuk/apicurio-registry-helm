@@ -38,11 +38,24 @@
       },
       "sql": {
         "type": "object", "additionalProperties": false,
-        "required": ["url", "username", "password"],
+        "required": ["url", "existingSecret", "existingSecretUsernameKey","existingSecretPasswordKey"],
         "properties": {
           "url": {"type": "string"},
-          "username": {"type": "string"},
-          "password": {"type": "string"}
+          "existingSecret": {
+            "type": "string",
+            "default": "apicurio-registry-sync-db",
+            "title": "Name of existing secret containing SQL credentials for apicurio"
+          },
+          "existingSecretUsernameKey": {
+            "type": "string",
+            "default": "username",
+            "title": "Key in the existing secret containing SQL username for apicurio"
+          },
+          "existingSecretPasswordKey": {
+            "type": "string",
+            "default": "password",
+            "title": "Key in the existing secret containing SQL password for apicurio"
+          }
         }
       }
     },

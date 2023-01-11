@@ -30,12 +30,12 @@ if [ $? -eq 0 ]; then
   exit 1
 fi
 
-helm lint . --strict --set 'registry.sql.url=c,registry.sql.username=a,registry.sql.password=b'
+helm lint . --strict --set 'registry.sql.url=c,registry.sql.existingSecret=a,registry.sql.existingSecretUsernameKey=b,registry.sql.existingSecretPasswordKey=d'
 if [ $? -ne 0 ]; then
   exit 1
 fi
 
-helm lint . --strict --set 'registry.sql.url=c,registry.sql.username=a,registry.sql.pwd=b'
+helm lint . --strict --set 'registry.sql.url=c,registry.sql.existingSecret=a,registry.sql.existingSecretUsernameKey=b,registry.sql.existingSecretPassKey=d'
 if [ $? -eq 0 ]; then
   exit 1
 fi

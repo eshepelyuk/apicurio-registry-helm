@@ -6,10 +6,15 @@ registry:
   #   bootstrapServers: kafka1:9092,kafka2:9092
 
   ## uncomment and adjust for sql persistence
-  # sql:
-  #   url: jdbc:postgresql://postgres/apicurio-registry
-  #   username: apicurio
-  #   password: apicurio-password
+  sql:
+    # JDBC url for the connection
+    url: jdbc:postgresql://postgres/apicurio-registry
+    # Existing kubernetes secret containing the DB credentials
+    existingSecret: apicurio-registry-sync-db
+    # Key in existing secret that contain the username
+    existingSecretUsernameKey: username
+    # Key in existing secret that contain the password
+    existingSecretPasswordKey: password
 
   image:
     registry: "quay.io"

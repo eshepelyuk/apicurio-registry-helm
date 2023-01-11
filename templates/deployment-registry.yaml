@@ -31,15 +31,21 @@ spec:
               value: INFO
             - name: QUARKUS_PROFILE
               value: prod
-            {{- if hasKey .Values.registry "sql" }}
+            {{- if eq .Values.registry.persistence "sql" }}
             - name: REGISTRY_DATASOURCE_URL
               value: {{ .Values.registry.sql.url }}
             - name: REGISTRY_DATASOURCE_USERNAME
-              value: {{ .Values.registry.sql.username }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.registry.sql.existingSecretUsernameKey }}
+                  name: {{ .Values.registry.sql.existingSecret }}
             - name: REGISTRY_DATASOURCE_PASSWORD
-              value: {{ .Values.registry.sql.password }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.registry.sql.existingSecretPasswordKey }}
+                  name: {{ .Values.registry.sql.existingSecret }}
             {{- end }}
-            {{- if hasKey .Values.registry "kafka" }}
+            {{- if eq .Values.registry.persistence "kafka" }}
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: {{ .Values.registry.kafka.bootstrapServers }}
             {{- end }}
