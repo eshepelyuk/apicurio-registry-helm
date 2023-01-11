@@ -29,6 +29,12 @@
       }
     },
     "persistence": {
+      "choice": {
+        "type": "string",
+        "pattern": "^(memory|kafka|sql)$",
+        "default": "memory",
+        "title": "Type of persistence for apicurio registry"
+      },
       "kafka": {
         "type": "object", "additionalProperties": false,
         "required": ["bootstrapServers"],
@@ -87,7 +93,7 @@
   "properties": {
     "registry": {
       "type": "object", "title": "registry settings",
-      "required": ["enabled", "image", "resources", "ingress"],
+      "required": ["enabled", "persistence", "image", "resources", "ingress"],
       "additionalProperties": false,
       "properties": {
         "enabled": {"$ref": "#/definitions/isEnabled"},
@@ -99,6 +105,7 @@
         "resources": {"$ref": "#/definitions/podResources"},
         "kafka": {"$ref": "#/definitions/persistence/kafka"},
         "sql": {"$ref": "#/definitions/persistence/sql"},
+        "persistence": {"$ref": "#/definitions/persistence/choice"},
         "ingress": {"$ref": "#/definitions/ingress"}
       }
     },

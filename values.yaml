@@ -1,9 +1,11 @@
 registry:
   enabled: true
 
-  ## uncomment and adjust for kafka persistence
-  # kafka:
-  #   bootstrapServers: kafka1:9092,kafka2:9092
+  ## Choose persistence between memory/kafka/sql
+  persistence: memory
+  # uncomment and adjust for kafka persistence
+  kafka:
+     bootstrapServers: kafka1:9092,kafka2:9092
 
   ## uncomment and adjust for sql persistence
   sql:
