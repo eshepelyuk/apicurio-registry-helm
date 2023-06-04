@@ -8,7 +8,7 @@ test-lint:
 
 test-unit:
 	helm plugin ls | grep unittest || helm plugin install https://github.com/quintush/helm-unittest
-	helm unittest -f 'test/unit/*.yaml' -3 .
+	helm unittest -f 'test/unit/*.yaml' .
 
 test: test-lint test-unit
 
