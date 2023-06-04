@@ -20,6 +20,10 @@ spec:
       containers:
         - name: sync
           image: {{ .Values.sync.image.registry }}/{{ .Values.sync.image.repository }}:{{ .Values.sync.image.tag }}
+          {{- with .Values.sync.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           imagePullPolicy: "Always"
           env:
             - name: APICURIO_REGISTRY_URL

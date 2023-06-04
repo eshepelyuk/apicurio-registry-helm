@@ -70,6 +70,16 @@ if [ $? -eq 0 ]; then
   exit 1
 fi
 
+helm lint . --strict --set registry.nodeSelector.foo=bar
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set sync.nodeSelector.foo=bar
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
 echo "=================================================================================="
 echo "                                LINT PASSED"
 echo "=================================================================================="

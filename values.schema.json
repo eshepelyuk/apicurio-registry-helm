@@ -79,6 +79,7 @@
       "properties": {
         "enabled": {"$ref": "#/definitions/isEnabled"},
         "image": {"$ref": "#/definitions/dockerImage"},
+        "nodeSelector": {"type": "object", "title": "node selector for registry"},
         "extraEnv": {
           "type": "array", "default": [],
           "items": {"$ref": "#/definitions/keyValue"}
@@ -95,6 +96,7 @@
       "properties": {
         "enabled": {"$ref": "#/definitions/isEnabled"},
         "image": {"$ref": "#/definitions/dockerImage"},
+        "nodeSelector": {"type": "object", "title": "node selector for registry content sync"},
         "resources": {"$ref": "#/definitions/podResources"},
         "registryUrl": {"type": ["null", "string"], "default": null}
       }
