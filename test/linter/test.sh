@@ -30,6 +30,16 @@ if [ $? -eq 0 ]; then
   exit 1
 fi
 
+helm lint . --strict --set 'registry.kafka.bootstrapServers=localhost:9094,registry.kafka.security.protocol=SSL'
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set 'registry.kafka.bootstrapServers=localhost:9094,registry.kafka.security.protocol=SSL,registry.kafka.security.ssl.keyStore.type=JKS,registry.kafka.security.ssl.keyStore.location=/tmp,registry.kafka.security.ssl.keyStore.password=changeit,registry.kafka.security.ssl.keyStore.keyPassword=changeme'
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
 helm lint . --strict --set 'registry.sql.url=c,registry.sql.username=a,registry.sql.password=b'
 if [ $? -ne 0 ]; then
   exit 1

@@ -46,6 +46,40 @@ spec:
             {{- if hasKey .Values.registry "kafka" }}
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: {{ .Values.registry.kafka.bootstrapServers }}
+            {{- with .Values.registry.kafka.security }}
+            - name: KAFKA_SECURITY_PROTOCOL
+              value: {{ .protocol }}
+              {{- with .ssl }}
+                {{- with .trustStore }}
+            - name: KAFKA_SSL_TRUSTSTORE_TYPE
+              value: {{ .type }}
+            - name: KAFKA_SSL_TRUSTSTORE_LOCATION
+              value: {{ .location }}
+            - name: KAFKA_SSL_TRUSTSTORE_PASSWORD
+              value: {{ .password }}
+                {{- end }}
+                {{- with .keyStore }}
+            - name: KAFKA_SSL_KEY_PASSWORD
+              value: {{ .keyPassword }}
+            - name: KAFKA_SSL_KEYSTORE_TYPE
+              value: {{ .type }}
+            - name: KAFKA_SSL_KEYSTORE_LOCATION
+              value: {{ .location }}
+            - name: KAFKA_SSL_KEYSTORE_PASSWORD
+              value: {{ .password }}
+                {{- end }}
+              {{- end }}
+              {{- with .sasl }}
+            - name: ENABLE_KAFKA_SASL
+              value: {{ .enabled }}
+            - name: CLIENT_ID
+              value: {{ .clientId }}
+            - name: CLIENT_SECRET
+              value: {{ .clientSecret }}
+            - name: OAUTH_TOKEN_ENDPOINT_URI
+              value: {{ .tokenEndpoint }}
+              {{- end }}
+            {{- end }}
             {{- end }}
             {{- with .Values.registry.extraEnv }}
             {{- toYaml . | nindent 12 }}

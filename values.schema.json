@@ -33,7 +33,45 @@
         "type": "object", "additionalProperties": false,
         "required": ["bootstrapServers"],
         "properties": {
-          "bootstrapServers": {"type": "string"}
+          "bootstrapServers": {"type": "string"},
+          "security": {"type": "object", "additionalProperties": false,
+            "required": ["protocol"],
+            "properties": {
+              "protocol": {"type": "string"},
+              "ssl": {
+                "type": "object", "additionalProperties": false,
+                "properties": {
+                  "trustStore": {
+                    "type": "object", "additionalProperties": false,
+                    "required": ["type","location","password"],
+                    "properties": {
+                      "type": {"type": "string"},
+                      "location": {"type": "string"},
+                      "password": {"type": "string"}
+                    }
+                  },
+                  "keyStore": {"type": "object", "additionalProperties": false,
+                    "required": ["type","location","password","keyPassword"],
+                    "properties": {
+                      "type": {"type": "string"},
+                      "location": {"type": "string"},
+                      "password": {"type": "string"},
+                      "keyPassword": {"type": "string"}
+                    }
+                  }
+                }
+              },
+              "sasl": {"type":"object", "additionalProperties": false,
+                "required": ["enabled","clientId","clientSecret","tokenEndpoint"],
+                "properties": {
+                  "enabled": {"type": "string"},
+                  "clientId": {"type": "string"},
+                  "clientSecret": {"type": "string"},
+                  "tokenEndpoint": {"type": "string"}
+                }
+              }
+            }        
+          }
         }
       },
       "sql": {

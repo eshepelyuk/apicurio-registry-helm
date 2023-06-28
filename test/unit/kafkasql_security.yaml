@@ -1,0 +1,133 @@
+suite: test registry node selector
+templates:
+  - deployment-registry.yaml
+tests:
+  - it: specify SSL
+    set:
+      registry:
+        kafka:
+          bootstrapServers: localhost:9094
+          security:
+            protocol: SSL
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KAFKA_SECURITY_PROTOCOL
+            value: SSL
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KAFKA_BOOTSTRAP_SERVERS
+            value: localhost:9094
+          any: true
+  - it: specify SSL with keyStore and trustStore
+    set:
+      registry:
+        kafka:
+          bootstrapServers: localhost:9094
+          security:
+            protocol: SSL
+            ssl:
+              keyStore:
+                type: JKS
+                location: /tmp/foo.jks
+                password: changeit
+                keyPassword: mypassword
+              trustStore:
+                type: OTHER
+                location: /tmp/foo.trust.jks
+                password: changeitAgain
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KAFKA_SECURITY_PROTOCOL
+            value: SSL
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KAFKA_BOOTSTRAP_SERVERS
+            value: localhost:9094
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KAFKA_SSL_TRUSTSTORE_TYPE
+            value: OTHER
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KAFKA_SSL_TRUSTSTORE_LOCATION
+            value: /tmp/foo.trust.jks
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KAFKA_SSL_TRUSTSTORE_PASSWORD
+            value: changeitAgain
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KAFKA_SSL_KEYSTORE_TYPE
+            value: JKS
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KAFKA_SSL_KEYSTORE_LOCATION
+            value: /tmp/foo.jks
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KAFKA_SSL_KEYSTORE_PASSWORD
+            value: changeit
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: KAFKA_SSL_KEY_PASSWORD
+            value: mypassword
+          any: true
+  - it: specify SASL
+    set:
+      registry:
+        kafka:
+          bootstrapServers: localhost:9094
+          security:
+            protocol: SASL
+            sasl:
+              enabled: "true"
+              clientId: foo
+              clientSecret: mySecret
+              tokenEndpoint: http://example.com
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: ENABLE_KAFKA_SASL
+            value: true
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: CLIENT_ID
+            value: foo
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: CLIENT_SECRET
+            value: mySecret
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: OAUTH_TOKEN_ENDPOINT_URI
+            value: http://example.com
+          any: true
