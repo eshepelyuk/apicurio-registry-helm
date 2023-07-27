@@ -16,7 +16,22 @@ spec:
         {{- include "apicurio-registry.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: registry
     spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+      {{- end }}
+      {{- if .Values.securityContext }}
+      securityContext:
+        {{- toYaml .Values.securityContext | nindent 8 }}
+      {{- end }}
       serviceAccountName: {{ include "apicurio-registry.name" . }}
+      {{- if .Values.registry.initContainers }}
+      initContainers:
+        {{- range $key, $value := .Values.registry.initContainers }}
+        - name: {{ $key }}
+          {{- toYaml $value | nindent 10 }}
+        {{- end }}
+      {{- end }}
       containers:
         - name: registry
           image: {{ include "apicurio-registry.image" .Values.registry }}
@@ -50,6 +65,18 @@ spec:
             {{- with .Values.registry.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
+          {{- if .Values.registry.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.registry.livenessProbe.prefix | default "" }}{{ .Values.registry.livenessProbe.path }}
+              port: {{ .Values.registry.livenessProbe.port }}
+              {{- if .Values.registry.livenessProbe.httpGetExtra }}{{ toYaml .Values.registry.livenessProbe.httpGetExtra | trim | nindent 14 }}{{ end }}
+            initialDelaySeconds: {{ .Values.registry.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.registry.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.registry.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.registry.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.registry.livenessProbe.failureThreshold }}
+          {{- else }}
           livenessProbe:
             httpGet:
               path: /health/live
@@ -59,6 +86,21 @@ spec:
             timeoutSeconds: 5
             successThreshold: 1
             failureThreshold: 3
+          {{- end }}
+          {{- if .Values.registry.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.registry.readinessProbe.prefix | default "" }}{{ .Values.registry.readinessProbe.path }}
+              port: {{ .Values.registry.readinessProbe.port }}
+            {{- if .Values.registry.readinessProbe.httpGetExtra }}
+              {{- toYaml .Values.registry.readinessProbe.httpGetExtra | trim | nindent 14 }}
+            {{- end }}
+            initialDelaySeconds: {{ .Values.registry.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.registry.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.registry.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.registry.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.registry.readinessProbe.failureThreshold }}
+          {{- else }}
           readinessProbe:
             httpGet:
               path: /health/ready
@@ -68,8 +110,25 @@ spec:
             timeoutSeconds: 5
             successThreshold: 1
             failureThreshold: 3
+          {{- end }}
           {{- with .Values.registry.resources }}
           resources:
             {{ . | toYaml | nindent 12 }}
           {{- end }}
+      {{- if .Values.registry.extraVolumeMounts  }}
+          volumeMounts:
+            {{- toYaml .Values.registry.extraVolumeMounts | nindent 12 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.registry.extraVolumes  }}
+      volumes:
+        {{- toYaml .Values.registry.extraVolumes | nindent 8 }}
+      {{- end }}
 {{- end }}

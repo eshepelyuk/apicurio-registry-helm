@@ -1,3 +1,8 @@
+# imagePullSecrets:
+# securityContext:
+# affinity:
+# tolerations:
+
 registry:
   enabled: true
 
@@ -17,6 +22,42 @@ registry:
     tag: "2.3.1.Final"
   # optional node selector
   nodeSelector: {}
+  # optional init containers
+  initContainers: {}
+  # optional liveliness probe
+  livenessProbe:
+    enabled: false
+    #prefix: ""
+    #path: "/health/ready"
+    #port: 8787
+    #httpGetExtra: {}
+    #initialDelaySeconds: 0
+    #periodSeconds: 30
+    #timeoutSeconds: 5
+    #successThreshold: 1
+    #failureThreshold: 3
+  # optional readiness probe
+  readinessProbe:
+    enabled: false
+    #prefix: ""
+    #path: "/health/ready"
+    #port: 8787
+    #httpGetExtra: {}
+    #initialDelaySeconds: 0
+    #periodSeconds: 30
+    #timeoutSeconds: 5
+    #successThreshold: 1
+    #failureThreshold: 3
+  # list of extra volume mounts
+  extraVolumeMounts: []
+    # - name: kafkauser
+    #   mountPath: /opt/user
+    #   readOnly: true
+  # list of extra volumes
+  extraVolumes: []
+    # - name: kafkauser
+    #   secret:
+    #     secretName: kafka-user
   # list of name, value pairs of extra environment vars
   extraEnv: []
     # - name: SOME_ENV
@@ -45,6 +86,42 @@ sync:
     tag: "d0e2505"
   # optional node selector
   nodeSelector: {}
+  # optional init containers
+  initContainers: {}
+  # optional liveliness probe
+  livenessProbe:
+    enabled: false
+    #prefix: ""
+    #path: "/health/ready"
+    #port: 8787
+    #httpGetExtra: {}
+    #initialDelaySeconds: 0
+    #periodSeconds: 30
+    #timeoutSeconds: 5
+    #successThreshold: 1
+    #failureThreshold: 3
+  # optional readiness probe
+  readinessProbe:
+    enabled: false
+    #prefix: ""
+    #path: "/health/ready"
+    #port: 8787
+    #httpGetExtra: {}
+    #initialDelaySeconds: 0
+    #periodSeconds: 30
+    #timeoutSeconds: 5
+    #successThreshold: 1
+    #failureThreshold: 3
+  # list of extra volume mounts
+  extraVolumeMounts: []
+    # - name: kafkauser
+    #   mountPath: /opt/user
+    #   readOnly: true
+  # list of extra volumes
+  extraVolumes: []
+    # - name: kafkauser
+    #   secret:
+    #     secretName: kafka-user
   # registryUrl:
   resources: {}
     # limits:

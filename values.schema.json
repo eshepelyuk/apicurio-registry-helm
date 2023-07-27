@@ -47,12 +47,36 @@
       }
     },
     "keyValue": {
-      "type": "object", "additionalProperties": false,
-      "required": ["name", "value"],
+      "type": "object",
+      "required": ["name"],
       "properties": {
         "name": { "type": "string"},
         "value": {"type": "string"}
       }
+    },
+    "initContainers": {
+      "type": "object", "default": {}
+    },
+    "probe": {
+      "type": "object", "additionalProperties": false,
+      "required": ["enabled"],
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "path": {"type": "string", "default": "/"},
+        "port": {"type": "integer", "default": 8787},
+        "httpGetExtra": {"type": "object", "default": {}},
+        "initialDelaySeconds": {"type": "integer", "default": 10},
+        "timeoutSeconds": {"type": "integer", "default": 5},
+        "periodSeconds": {"type": "integer", "default": 10},
+        "successThreshold": {"type": "integer", "default": 1},
+        "failureThreshold": {"type": "integer", "default": 3}
+      }
+    },
+    "volumeMounts": {
+      "type": "array", "default": []
+    },
+    "volumes": {
+      "type": "array", "default": []
     },
     "ingress": {
       "type": "object", "title": "ingress resource for registry",
@@ -72,6 +96,18 @@
   "type": "object",
 
   "properties": {
+    "imagePullSecrets": {
+      "type": "array", "default": []
+    },
+    "securityContext": {
+      "type": "object", "default": {}
+    },
+    "affinity": {
+      "type": "object", "default": {}
+    },
+    "tolerations": {
+      "type": "array", "default": []
+    },
     "registry": {
       "type": "object", "title": "registry settings",
       "required": ["enabled", "image", "resources", "ingress"],
@@ -80,6 +116,11 @@
         "enabled": {"$ref": "#/definitions/isEnabled"},
         "image": {"$ref": "#/definitions/dockerImage"},
         "nodeSelector": {"type": "object", "title": "node selector for registry"},
+        "initContainers": {"$ref": "#/definitions/initContainers"},
+        "livenessProbe": {"$ref": "#/definitions/probe"},
+        "readinessProbe": {"$ref": "#/definitions/probe"},
+        "extraVolumeMounts": {"$ref": "#/definitions/volumeMounts"},
+        "extraVolumes": {"$ref": "#/definitions/volumes"},
         "extraEnv": {
           "type": "array", "default": [],
           "items": {"$ref": "#/definitions/keyValue"}
@@ -97,6 +138,11 @@
         "enabled": {"$ref": "#/definitions/isEnabled"},
         "image": {"$ref": "#/definitions/dockerImage"},
         "nodeSelector": {"type": "object", "title": "node selector for registry content sync"},
+        "initContainers": {"$ref": "#/definitions/initContainers"},
+        "livenessProbe": {"$ref": "#/definitions/probe"},
+        "readinessProbe": {"$ref": "#/definitions/probe"},
+        "extraVolumeMounts": {"$ref": "#/definitions/volumeMounts"},
+        "extraVolumes": {"$ref": "#/definitions/volumes"},
         "resources": {"$ref": "#/definitions/podResources"},
         "registryUrl": {"type": ["null", "string"], "default": null}
       }
