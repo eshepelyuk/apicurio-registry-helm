@@ -5,7 +5,7 @@ type: application
 version: 0.0.0 # actual version is managed by git tag
 appVersion: 0.0.0 # actual version is managed by git tag
 
-icon: https://design.jboss.org/apicurio/logo/logofiles/apicurio_icon_lightbkg_color.svg
+icon: https://design.jboss.org/apicurio/logo/final/svg/apicurio_registry_icon_default.svg
 
 home: https://github.com/eshepelyuk/apicurio-registry-helm
 
