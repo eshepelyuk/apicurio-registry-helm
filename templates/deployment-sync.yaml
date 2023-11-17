@@ -17,6 +17,10 @@ spec:
         app.kubernetes.io/component: sync
     spec:
       serviceAccountName: {{ include "apicurio-registry.name" . }}
+      {{- with .Values.sync.initContainers }}
+      initContainers:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
       containers:
         - name: sync
           image: {{ .Values.sync.image.registry }}/{{ .Values.sync.image.repository }}:{{ .Values.sync.image.tag }}

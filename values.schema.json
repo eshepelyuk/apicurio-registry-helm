@@ -54,6 +54,9 @@
         "value": {"type": "string"}
       }
     },
+    "initContainers": {
+      "type": "array", "default": []
+    },
     "ingress": {
       "type": "object", "title": "ingress resource for registry",
       "required": ["enabled", "host", "path"],
@@ -80,6 +83,7 @@
         "enabled": {"$ref": "#/definitions/isEnabled"},
         "image": {"$ref": "#/definitions/dockerImage"},
         "nodeSelector": {"type": "object", "title": "node selector for registry"},
+        "initContainers": {"$ref": "#/definitions/initContainers"},
         "extraEnv": {
           "type": "array", "default": [],
           "items": {"$ref": "#/definitions/keyValue"}
@@ -97,6 +101,7 @@
         "enabled": {"$ref": "#/definitions/isEnabled"},
         "image": {"$ref": "#/definitions/dockerImage"},
         "nodeSelector": {"type": "object", "title": "node selector for registry content sync"},
+        "initContainers": {"$ref": "#/definitions/initContainers"},
         "resources": {"$ref": "#/definitions/podResources"},
         "registryUrl": {"type": ["null", "string"], "default": null}
       }
