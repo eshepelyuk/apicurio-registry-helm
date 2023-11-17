@@ -17,6 +17,10 @@ spec:
         app.kubernetes.io/component: registry
     spec:
       serviceAccountName: {{ include "apicurio-registry.name" . }}
+      {{- with .Values.registry.initContainers }}
+      initContainers:
+        {{- toYaml . | nindent 10 }}
+      {{- end }}
       containers:
         - name: registry
           image: {{ include "apicurio-registry.image" .Values.registry }}

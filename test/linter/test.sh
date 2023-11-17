@@ -80,6 +80,26 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+helm lint . --strict --set registry.initContainers[0].image=foo
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set sync.initContainers[0].image=foo
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set registry.initContainers.name=foo
+if [ $? -eq 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set sync.initContainers.name=foo
+if [ $? -eq 0 ]; then
+  exit 1
+fi
+
 echo "=================================================================================="
 echo "                                LINT PASSED"
 echo "=================================================================================="
