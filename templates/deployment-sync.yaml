@@ -66,4 +66,12 @@ spec:
           resources:
             {{ . | toYaml | nindent 12 }}
           {{- end }}
+          {{- with .Values.sync.extraVolumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.sync.extraVolumes  }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
 {{- end }}

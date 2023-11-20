@@ -57,6 +57,12 @@
     "initContainers": {
       "type": "array", "default": []
     },
+    "volumeMounts": {
+      "type": "array", "default": []
+    },
+    "volumes": {
+      "type": "array", "default": []
+    },
     "ingress": {
       "type": "object", "title": "ingress resource for registry",
       "required": ["enabled", "host", "path"],
@@ -89,6 +95,8 @@
           "items": {"$ref": "#/definitions/keyValue"}
         },
         "resources": {"$ref": "#/definitions/podResources"},
+        "extraVolumeMounts": {"$ref": "#/definitions/volumeMounts"},
+        "extraVolumes": {"$ref": "#/definitions/volumes"},
         "kafka": {"$ref": "#/definitions/persistence/kafka"},
         "sql": {"$ref": "#/definitions/persistence/sql"},
         "ingress": {"$ref": "#/definitions/ingress"}
@@ -103,6 +111,8 @@
         "nodeSelector": {"type": "object", "title": "node selector for registry content sync"},
         "initContainers": {"$ref": "#/definitions/initContainers"},
         "resources": {"$ref": "#/definitions/podResources"},
+        "extraVolumeMounts": {"$ref": "#/definitions/volumeMounts"},
+        "extraVolumes": {"$ref": "#/definitions/volumes"},
         "registryUrl": {"type": ["null", "string"], "default": null}
       }
     }
