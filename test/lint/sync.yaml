@@ -1,0 +1,44 @@
+suite: lint sync values
+templates:
+  - fake.yaml
+tests:
+  - it: nodeSelector is not object
+    set:
+      sync:
+        nodeSelector: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - sync.nodeSelector: Invalid type. Expected: object, given: string
+  - it: initContainers is not array
+    set:
+      sync:
+        initContainers: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - sync.initContainers: Invalid type. Expected: array, given: string
+  - it: extraVolumes is not array
+    set:
+      sync:
+        extraVolumes: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - sync.extraVolumes: Invalid type. Expected: array, given: string
+  - it: extraVolumeMounts is not array
+    set:
+      sync:
+        extraVolumeMounts: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - sync.extraVolumeMounts: Invalid type. Expected: array, given: string

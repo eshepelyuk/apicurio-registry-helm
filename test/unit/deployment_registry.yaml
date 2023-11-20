@@ -1,0 +1,111 @@
+suite: test deployment-registry.yaml template
+templates:
+  - deployment-registry.yaml
+tests:
+  - it: no selector
+    asserts:
+      - notExists:
+          path: spec.template.spec.containers[0].nodeSelector
+  - it: with node selectors
+    set:
+      registry:
+        nodeSelector:
+          foo: bar
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].nodeSelector.foo
+          value: bar
+  - it: no volumes
+    asserts:
+      - notExists:
+          path: spec.template.spec.volumes
+  - it: volumes
+    set:
+      registry:
+        extraVolumes:
+          - name: baz
+            emptyDir: {}
+          - name: foo
+            secret:
+              secretName: bar
+              optional: false
+    asserts:
+      - exists:
+          path: spec.template.spec.volumes
+      - equal:
+          path: spec.template.spec.volumes[0].name
+          value: baz
+      - equal:
+          path: spec.template.spec.volumes[0].emptyDir
+          value: {}
+      - equal:
+          path: spec.template.spec.volumes[1].name
+          value: foo
+      - equal:
+          path: spec.template.spec.volumes[1].secret.secretName
+          value: bar
+      - equal:
+          path: spec.template.spec.volumes[1].secret.optional
+          value: false
+  - it: no volume mounts
+    asserts:
+      - notExists:
+          path: spec.template.spec.containers[0].volumeMounts
+  - it: volume mounts
+    set:
+      registry:
+        extraVolumeMounts:
+          - name: foo
+            mountPath: /bar
+            readOnly: true
+    asserts:
+      - exists:
+          path: spec.template.spec.containers[0].volumeMounts
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[0].name
+          value: foo
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[0].mountPath
+          value: /bar
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[0].readOnly
+          value: true
+  - it: empty init container
+    asserts:
+      - notExists:
+          path: spec.template.spec.initContainers
+  - it: dummy init container
+    set:
+      registry:
+        initContainers:
+          - name: hello-world
+            image: dummy
+            command:
+              - /bin/sh
+              - -c
+              - echo "hello world"
+            volumeMounts:
+              - name: foo
+                mountPath: /bar
+            env:
+              - name: ENV_VAR
+                value: VALUE
+    asserts:
+      - equal:
+          path: spec.template.spec.initContainers[0].name
+          value: hello-world
+      - equal:
+          path: spec.template.spec.initContainers[0].command
+          value: [/bin/sh, -c, echo "hello world"]
+      - equal:
+          path: spec.template.spec.initContainers[0].volumeMounts[0].name
+          value: foo
+      - equal:
+          path: spec.template.spec.initContainers[0].volumeMounts[0].mountPath
+          value: /bar
+      - equal:
+          path: spec.template.spec.initContainers[0].env[0].name
+          value: ENV_VAR
+      - equal:
+          path: spec.template.spec.initContainers[0].env[0].value
+          value: VALUE
