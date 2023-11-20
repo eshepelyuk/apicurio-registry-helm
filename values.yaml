@@ -30,6 +30,16 @@ registry:
     # requests:
     #   cpu: 200m
     #   memory: 600Mi
+  # list of extra volume mounts
+  extraVolumeMounts: []
+    # - name: kafkauser
+    #   mountPath: /opt/user
+    #   readOnly: true
+  # list of extra volumes
+  extraVolumes: []
+    # - name: kafkauser
+    #   secret:
+    #     secretName: kafka-user
 
   ingress:
     enabled: false
@@ -57,4 +67,14 @@ sync:
     # requests:
     #   cpu: 200m
     #   memory: 600Mi
+  # list of extra volume mounts
+  extraVolumeMounts: []
+    # - name: kafkauser
+    #   mountPath: /opt/user
+    #   readOnly: true
+  # list of extra volumes
+  extraVolumes: []
+    # - name: kafkauser
+    #   secret:
+    #     secretName: kafka-user
 

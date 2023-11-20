@@ -1,0 +1,57 @@
+---
+suite: test sync volumes
+templates:
+  - deployment-sync.yaml
+tests:
+  - it: no volumes
+    asserts:
+      - notExists:
+          path: spec.template.spec.volumes
+  - it: volumes
+    set:
+      sync:
+        extraVolumes:
+          - name: baz
+            emptyDir: {}
+          - name: foo
+            secret:
+              secretName: bar
+              optional: false
+    asserts:
+      - exists:
+          path: spec.template.spec.volumes
+      - equal:
+          path: spec.template.spec.volumes[0].name
+          value: baz
+      - equal:
+          path: spec.template.spec.volumes[0].emptyDir
+          value: {}
+      - equal:
+          path: spec.template.spec.volumes[1].name
+          value: foo
+      - equal:
+          path: spec.template.spec.volumes[1].secret.secretName
+          value: bar
+  - it: no volume mounts
+    asserts:
+      - notExists:
+          path: spec.template.spec.containers[0].volumeMounts
+  - it: volume mounts
+    set:
+      sync:
+        extraVolumeMounts:
+          - name: foo
+            mountPath: /bar
+            readOnly: true
+    asserts:
+      - exists:
+          path: spec.template.spec.containers[0].volumeMounts
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[0].name
+          value: foo
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[0].mountPath
+          value: /bar
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[0].readOnly
+          value: true

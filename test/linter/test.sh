@@ -100,6 +100,51 @@ if [ $? -eq 0 ]; then
   exit 1
 fi
 
+# extraVolumeMounts - correct
+helm lint . --strict --set registry.extraVolumeMounts[0].name=foo,registry.extraVolumeMounts[0].mountPath=/bar
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set sync.extraVolumeMounts[0].name=foo,registry.extraVolumeMounts[0].mountPath=/bar
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+# extraVolumeMounts - wrong
+helm lint . --strict --set registry.extraVolumeMounts.name=foo,registry.extraVolumeMounts.mountPath=/bar
+if [ $? -eq 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set sync.extraVolumeMounts.name=foo,registry.extraVolumeMounts.mountPath=/bar
+if [ $? -eq 0 ]; then
+  exit 1
+fi
+
+# extraVolumes - correct
+helm lint . --strict --set registry.extraVolumes[0].name=foo,registry.extraVolumes[0].emptyDir=true
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set sync.extraVolumes[0].name=foo,sync.extraVolumes[0].emptyDir=true
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+# extraVolumes - wrong
+helm lint . --strict --set registry.extraVolumes.name=foo,registry.extraVolumes.emptyDir=true
+if [ $? -eq 0 ]; then
+  exit 1
+fi
+
+helm lint . --strict --set sync.extraVolumes.name=foo,sync.extraVolumes.emptyDir=true
+if [ $? -eq 0 ]; then
+  exit 1
+fi
+
+
 echo "=================================================================================="
 echo "                                LINT PASSED"
 echo "=================================================================================="
