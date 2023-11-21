@@ -46,14 +46,6 @@
         }
       }
     },
-    "keyValue": {
-      "type": "object", "additionalProperties": false,
-      "required": ["name", "value"],
-      "properties": {
-        "name": { "type": "string"},
-        "value": {"type": "string"}
-      }
-    },
     "initContainers": {
       "type": "array", "default": []
     },
@@ -89,14 +81,24 @@
         "enabled": {"$ref": "#/definitions/isEnabled"},
         "image": {"$ref": "#/definitions/dockerImage"},
         "nodeSelector": {"type": "object", "title": "node selector for registry"},
-        "initContainers": {"$ref": "#/definitions/initContainers"},
+        "initContainers": {"$ref": "#/definitions/initContainers", "title": "init containers for registry"},
         "extraEnv": {
-          "type": "array", "default": [],
-          "items": {"$ref": "#/definitions/keyValue"}
+          "type": "array",
+          "title": "extra environment variables for registry",
+          "default": [],
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          }
         },
         "resources": {"$ref": "#/definitions/podResources"},
-        "extraVolumeMounts": {"$ref": "#/definitions/volumeMounts"},
-        "extraVolumes": {"$ref": "#/definitions/volumes"},
+        "extraVolumeMounts": {"$ref": "#/definitions/volumeMounts", "title": "extra volume mounts for registry"},
+        "extraVolumes": {"$ref": "#/definitions/volumes", "title": "extra volumes for registry"},
         "kafka": {"$ref": "#/definitions/persistence/kafka"},
         "sql": {"$ref": "#/definitions/persistence/sql"},
         "ingress": {"$ref": "#/definitions/ingress"}
@@ -109,10 +111,10 @@
         "enabled": {"$ref": "#/definitions/isEnabled"},
         "image": {"$ref": "#/definitions/dockerImage"},
         "nodeSelector": {"type": "object", "title": "node selector for registry content sync"},
-        "initContainers": {"$ref": "#/definitions/initContainers"},
+        "initContainers": {"$ref": "#/definitions/initContainers", "title": "init containers for registry content sync"},
         "resources": {"$ref": "#/definitions/podResources"},
-        "extraVolumeMounts": {"$ref": "#/definitions/volumeMounts"},
-        "extraVolumes": {"$ref": "#/definitions/volumes"},
+        "extraVolumeMounts": {"$ref": "#/definitions/volumeMounts", "title": "extra volume mounts for registry content sync"},
+        "extraVolumes": {"$ref": "#/definitions/volumes", "title": "extra volumes for registry content sync"},
         "registryUrl": {"type": ["null", "string"], "default": null}
       }
     }
