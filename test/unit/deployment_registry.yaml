@@ -109,3 +109,35 @@ tests:
       - equal:
           path: spec.template.spec.initContainers[0].env[0].value
           value: VALUE
+  - it: plain extra env
+    set:
+      registry:
+        extraEnv:
+          - name: ENV_VAR
+            value: VALUE
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].env[3].name
+          value: ENV_VAR
+      - equal:
+          path: spec.template.spec.containers[0].env[3].value
+          value: VALUE
+  - it: extra env from secret
+    set:
+      registry:
+        extraEnv:
+         - name: FOO
+           valueFrom:
+             secretKeyRef:
+               name: bar
+               key: baz
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].env[3].name
+          value: FOO
+      - equal:
+          path: spec.template.spec.containers[0].env[3].valueFrom.secretKeyRef.name
+          value: bar
+      - equal:
+          path: spec.template.spec.containers[0].env[3].valueFrom.secretKeyRef.key
+          value: baz
