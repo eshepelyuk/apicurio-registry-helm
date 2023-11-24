@@ -43,6 +43,7 @@ registry:
 
   ingress:
     enabled: false
+    ingressClassName: ""
     host: "apicurio.local"
     path: "/"
     tls: false

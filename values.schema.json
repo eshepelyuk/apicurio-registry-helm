@@ -60,6 +60,7 @@
       "required": ["enabled", "host", "path"],
       "properties": {
         "enabled": {"type": "boolean", "default": false, "title": "enable ingress resource"},
+        "ingressClassName": {"type": "string", "default": "", "title": "set ingress controller used for this ingress rule"},
         "host": {"type": "string", "default": "apicurio.local", "title": "hostname"},
         "path": {"type": "string", "default": "/", "title": "ingress path"},
         "tls": {"type": "boolean", "default": false, "title": "enable TLS for ingress host",

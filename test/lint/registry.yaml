@@ -42,3 +42,24 @@ tests:
             values don't meet the specifications of the schema(s) in the following chart(s):
             apicurio-registry:
             - registry.extraVolumeMounts: Invalid type. Expected: array, given: string
+  - it: ingress is not object
+    set:
+      registry:
+        ingress: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - registry.ingress: Invalid type. Expected: object, given: string
+  - it: ingressClassName is not string
+    set:
+      registry:
+        ingress:
+          ingressClassName: 1
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - registry.ingress.ingressClassName: Invalid type. Expected: string, given: integer
