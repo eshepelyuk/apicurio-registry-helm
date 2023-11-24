@@ -1,0 +1,38 @@
+suite: test ingress
+templates:
+  - ingress.yaml
+tests:
+  - it: registry and ingress enabled
+    set:
+      registry.enabled: true
+      registry.ingress.enabled: true
+    asserts:
+      - isKind:
+          of: Ingress
+  - it: ingress
+    set:
+      registry.enabled: true
+      registry:
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          host: "apicurio.local"
+          path: "/"
+    asserts:
+      - exists:
+          path: spec.ingressClassName
+      - equal:
+          path: spec.ingressClassName
+          value: nginx
+      - exists:
+          path: spec.rules[0].host
+      - equal:
+          path: spec.rules[0].host
+          value: apicurio.local
+      - exists:
+          path: spec.rules[0].http.paths[0].path
+      - equal:
+          path: spec.rules[0].http.paths[0].path
+          value: /
+    
+
