@@ -18,16 +18,13 @@ Also, we would like PRs to contain a single commit and be rebased onto project `
 
 The project is covered by following types of tests
 
-* linter tests - `test/lint`
+* lint tests - `test/lint`
 * unit tests - `test/unit`
 * e2e tests - `test/e2e`
 
 Every PR should provide appropriate amount of testing, corresponding to its scope.
 
-Use [just](https://github.com/casey/just) to run test locally:
-
-* `just test-lint` - execute linter tests
-* `just test-unit` - execute unit tests
+Use [just](https://github.com/casey/just) to run test locally.
 
 ## Development flow.
 
