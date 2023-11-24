@@ -18,7 +18,7 @@ Also, we would like PRs to contain a single commit and be rebased onto project `
 
 The project is covered by following types of tests
 
-* linter tests - `test/linter`
+* linter tests - `test/lint`
 * unit tests - `test/unit`
 * e2e tests - `test/e2e`
 
