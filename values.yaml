@@ -40,6 +40,8 @@ registry:
     # - name: kafkauser
     #   secret:
     #     secretName: kafka-user
+  # add extraLabels in deployment and pod objects
+  extraLabels: {}
 
   ingress:
     enabled: false
@@ -78,4 +80,5 @@ sync:
     # - name: kafkauser
     #   secret:
     #     secretName: kafka-user
-
+  # add extraLabels in deployment and pod objects
+  extraLabels: {}

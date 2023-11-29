@@ -109,3 +109,54 @@ tests:
       - equal:
           path: spec.template.spec.initContainers[0].env[0].value
           value: VALUE
+  - it: no extraLabels
+    asserts:
+      - equal:
+          path: spec.selector.matchLabels
+          value: 
+            app.kubernetes.io/component: sync
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/name: apicurio-registry
+      - equal:
+          path: metadata.labels
+          value: 
+            helm.sh/chart: "apicurio-registry-0.0.0"
+            app.kubernetes.io/version: "0.0.0"
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: apicurio-registry
+            app.kubernetes.io/instance: RELEASE-NAME
+      - equal:
+          path: spec.template.metadata.labels
+          value: 
+            app.kubernetes.io/component: sync
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/name: apicurio-registry
+  - it: with extraLabels
+    set:
+      sync:
+        extraLabels:
+          testLabel: "myLabel"
+    asserts:
+      - equal:
+          path: spec.selector.matchLabels
+          value: 
+            app.kubernetes.io/component: sync
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/name: apicurio-registry
+            testLabel: myLabel
+      - equal:
+          path: metadata.labels
+          value: 
+            helm.sh/chart: "apicurio-registry-0.0.0"
+            app.kubernetes.io/version: "0.0.0"
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: apicurio-registry
+            app.kubernetes.io/instance: RELEASE-NAME
+            testLabel: myLabel
+      - equal:
+          path: spec.template.metadata.labels
+          value: 
+            app.kubernetes.io/component: sync
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/name: apicurio-registry
+            testLabel: myLabel
