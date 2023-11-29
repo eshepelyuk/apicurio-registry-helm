@@ -55,6 +55,9 @@
     "volumes": {
       "type": "array", "default": []
     },
+    "labels": {
+      "type": "object", "default": {}
+    },
     "ingress": {
       "type": "object", "title": "ingress resource for registry",
       "required": ["enabled", "host", "path"],
@@ -102,7 +105,8 @@
         "extraVolumes": {"$ref": "#/definitions/volumes", "title": "extra volumes for registry"},
         "kafka": {"$ref": "#/definitions/persistence/kafka"},
         "sql": {"$ref": "#/definitions/persistence/sql"},
-        "ingress": {"$ref": "#/definitions/ingress"}
+        "ingress": {"$ref": "#/definitions/ingress"},
+        "extraLabels": {"$ref": "#/definitions/labels", "title": "deployment and pod resources labels for registry"}
       }
     },
     "sync": {
@@ -116,7 +120,8 @@
         "resources": {"$ref": "#/definitions/podResources"},
         "extraVolumeMounts": {"$ref": "#/definitions/volumeMounts", "title": "extra volume mounts for registry content sync"},
         "extraVolumes": {"$ref": "#/definitions/volumes", "title": "extra volumes for registry content sync"},
-        "registryUrl": {"type": ["null", "string"], "default": null}
+        "registryUrl": {"type": ["null", "string"], "default": null},
+        "extraLabels": {"$ref": "#/definitions/labels", "title": "deployment and pod resources labels for sync"}
       }
     }
   }

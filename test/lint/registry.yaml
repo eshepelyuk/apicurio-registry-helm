@@ -63,3 +63,13 @@ tests:
             values don't meet the specifications of the schema(s) in the following chart(s):
             apicurio-registry:
             - registry.ingress.ingressClassName: Invalid type. Expected: string, given: integer
+  - it: extraLabels is not object
+    set:
+      registry:
+          extraLabels: 1
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - registry.extraLabels: Invalid type. Expected: object, given: integer

@@ -5,15 +5,24 @@ metadata:
   name: {{ include "apicurio-registry.name" . }}
   labels:
     {{- include "apicurio-registry.labels" . | nindent 4 }}
+    {{- with .Values.registry.extraLabels  }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     matchLabels:
       {{- include "apicurio-registry.selectorLabels" . | nindent 6 }}
+      {{- with .Values.registry.extraLabels  }}
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
       app.kubernetes.io/component: registry
   template:
     metadata:
       labels:
         {{- include "apicurio-registry.selectorLabels" . | nindent 8 }}
+        {{- with .Values.registry.extraLabels  }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
         app.kubernetes.io/component: registry
     spec:
       serviceAccountName: {{ include "apicurio-registry.name" . }}

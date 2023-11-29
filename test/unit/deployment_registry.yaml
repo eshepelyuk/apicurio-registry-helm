@@ -141,3 +141,32 @@ tests:
       - equal:
           path: spec.template.spec.containers[0].env[3].valueFrom.secretKeyRef.key
           value: baz
+  - it: no extraLabels
+    set:
+      registry:
+        extraLabels:
+          testLabel: "myLabel"
+    asserts:
+      - equal:
+          path: spec.selector.matchLabels
+          value: 
+            app.kubernetes.io/component: registry
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/name: apicurio-registry
+            testLabel: myLabel
+      - equal:
+          path: metadata.labels
+          value: 
+            helm.sh/chart: "apicurio-registry-0.0.0"
+            app.kubernetes.io/version: "0.0.0"
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: apicurio-registry
+            app.kubernetes.io/instance: RELEASE-NAME
+            testLabel: myLabel
+      - equal:
+          path: spec.template.metadata.labels
+          value: 
+            app.kubernetes.io/component: registry
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/name: apicurio-registry
+            testLabel: myLabel
