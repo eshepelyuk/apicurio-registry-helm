@@ -25,6 +25,10 @@ spec:
         {{- end }}
         app.kubernetes.io/component: registry
     spec:
+      {{- with .Values.registry.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
       serviceAccountName: {{ include "apicurio-registry.name" . }}
       {{- with .Values.registry.initContainers }}
       initContainers:

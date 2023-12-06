@@ -52,6 +52,9 @@
     "volumeMounts": {
       "type": "array", "default": []
     },
+    "imagePullSecrets": {
+      "type": "array", "default": []
+    },
     "volumes": {
       "type": "array", "default": []
     },
@@ -67,7 +70,7 @@
         "host": {"type": "string", "default": "apicurio.local", "title": "hostname"},
         "path": {"type": "string", "default": "/", "title": "ingress path"},
         "tls": {"type": "boolean", "default": false, "title": "enable TLS for ingress host",
-            "description": "if TLS enabled the certificate is retrieved from secret with the same name as ingress host"},
+        "description": "if TLS enabled the certificate is retrieved from secret with the same name as ingress host"},
         "annotations": {"type": "object", "default": {}, "title": "ingress resource annotations"},
         "labels": {"type": "object", "default": {}, "title": "ingress resource labels"}
       }
@@ -105,6 +108,7 @@
         "extraVolumes": {"$ref": "#/definitions/volumes", "title": "extra volumes for registry"},
         "kafka": {"$ref": "#/definitions/persistence/kafka"},
         "sql": {"$ref": "#/definitions/persistence/sql"},
+        "imagePullSecrets": {"$ref": "#/definitions/imagePullSecrets"},
         "ingress": {"$ref": "#/definitions/ingress"},
         "extraLabels": {"$ref": "#/definitions/labels", "title": "deployment and pod resources labels for registry"}
       }
@@ -115,6 +119,7 @@
       "properties": {
         "enabled": {"$ref": "#/definitions/isEnabled"},
         "image": {"$ref": "#/definitions/dockerImage"},
+        "imagePullSecrets": {"$ref": "#/definitions/imagePullSecrets"},
         "nodeSelector": {"type": "object", "title": "node selector for registry content sync"},
         "initContainers": {"$ref": "#/definitions/initContainers", "title": "init containers for registry content sync"},
         "resources": {"$ref": "#/definitions/podResources"},
