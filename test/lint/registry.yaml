@@ -2,6 +2,16 @@ suite: lint registry values
 templates:
   - fake.yaml
 tests:
+  - it: imagePullSecrets is not array
+    set:
+      registry:
+        imagePullSecrets: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - registry.imagePullSecrets: Invalid type. Expected: array, given: string
   - it: nodeSelector is not object
     set:
       registry:

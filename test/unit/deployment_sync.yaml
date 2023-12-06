@@ -160,3 +160,12 @@ tests:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/name: apicurio-registry
             testLabel: myLabel
+  - it: set imagePullSecrets
+    set:
+      sync:
+        imagePullSecrets:
+          - name: mysecret
+    asserts:
+      - equal:
+          path: spec.template.spec.imagePullSecrets[0].name
+          value: mysecret

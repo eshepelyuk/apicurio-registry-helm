@@ -1,5 +1,8 @@
 registry:
   enabled: true
+  # set imagePullSecret to pull image from an authenticated registry
+  imagePullSecrets: []
+  # - name: secretName
 
   ## uncomment and adjust for kafka persistence
   # kafka:
@@ -54,6 +57,9 @@ registry:
 
 sync:
   enabled: true
+  # set imagePullSecret to pull image from an authenticated registry
+  imagePullSecrets: []
+  # - name: secretName
   image:
     registry: "quay.io"
     repository: "apicurio/apicurio-registry-kube-sync"

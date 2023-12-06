@@ -12,6 +12,16 @@ tests:
             values don't meet the specifications of the schema(s) in the following chart(s):
             apicurio-registry:
             - sync.extraLabels: Invalid type. Expected: object, given: integer
+  - it: imagePullSecrets is not array
+    set:
+      sync:
+        imagePullSecrets: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - sync.imagePullSecrets: Invalid type. Expected: array, given: string
   - it: nodeSelector is not object
     set:
       sync:

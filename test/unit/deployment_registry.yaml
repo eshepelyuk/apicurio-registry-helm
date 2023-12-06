@@ -2,6 +2,15 @@ suite: test deployment-registry.yaml template
 templates:
   - deployment-registry.yaml
 tests:
+  - it: set imagePullSecrets
+    set:
+      registry:
+        imagePullSecrets:
+          - name: mysecret
+    asserts:
+      - equal:
+          path: spec.template.spec.imagePullSecrets[0].name
+          value: mysecret
   - it: no selector
     asserts:
       - notExists:
