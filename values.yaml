@@ -18,6 +18,9 @@ registry:
     registry: "quay.io"
     repository: "apicurio/apicurio-registry"
     tag: "2.4.14.Final"
+    # Autodetect image suffix based on persistence type
+    # the default is true, it is used by helpers.tpl to define the image to use
+    persistenceSuffix: true
   # optional node selector
   nodeSelector: {}
   # optional init containers

@@ -2,6 +2,60 @@ suite: test deployment-registry.yaml template
 templates:
   - deployment-registry.yaml
 tests:
+  - it: use mem image
+    set:
+      registry:
+        image:
+          registry: "quay.io"
+          repository: "apicurio/apicurio-registry"
+          tag: "fakeTag"
+          persistenceSuffix: true
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: quay.io/apicurio/apicurio-registry-mem:fakeTag
+  - it: use sql default image
+    set:
+      registry:
+        sql:
+          username: user
+          password: password
+          url: url
+        image:
+          registry: "quay.io"
+          repository: "apicurio/apicurio-registry"
+          tag: "fakeTag"
+          persistenceSuffix: true
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: quay.io/apicurio/apicurio-registry-sql:fakeTag
+  - it: use kafka default image
+    set:
+      registry:
+        kafka:
+          bootstrapServers: kafka
+        image:
+          registry: "quay.io"
+          repository: "apicurio/apicurio-registry"
+          tag: "fakeTag"
+          persistenceSuffix: true
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: quay.io/apicurio/apicurio-registry-kafkasql:fakeTag
+  - it: use customImage
+    set:
+      registry:
+        image:
+          registry: "myregistry"
+          repository: "myrepo/myimage"
+          tag: "fakeTag"
+          persistenceSuffix: false
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: myregistry/myrepo/myimage:fakeTag
   - it: set imagePullSecrets
     set:
       registry:
