@@ -16,12 +16,14 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 
 {{- define "apicurio-registry.image" -}}
 {{- $sfx := "" -}}
-{{- if hasKey . "sql" -}}
-{{- $sfx = "sql" -}}
+{{- if not .image.persistenceSuffix -}}
+{{- $sfx = "" -}}
+{{- else if hasKey . "sql" -}}
+{{- $sfx = "-sql" -}}
 {{- else if hasKey . "kafka" -}}
-{{- $sfx = "kafkasql" -}}
+{{- $sfx = "-kafkasql" -}}
 {{- else -}}
-{{- $sfx = "mem" -}}
+{{- $sfx = "-mem" -}}
 {{- end -}}
-{{ printf "%s/%s-%s:%s" .image.registry .image.repository $sfx .image.tag }}
+{{ printf "%s/%s%s:%s" .image.registry .image.repository $sfx .image.tag }}
 {{- end -}}

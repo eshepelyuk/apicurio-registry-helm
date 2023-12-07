@@ -13,7 +13,10 @@
       "properties": {
         "registry": {"type": "string", "default": "quay.io"},
         "repository": {"type": "string"},
-        "tag": {"type": "string"}
+        "tag": {"type": "string"},
+        "persistenceSuffix": {
+          "type": "boolean", "title": "Autodetect image suffix based on persistence type" , "default": true
+        }
       }
     },
     "podResources": {

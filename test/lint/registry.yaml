@@ -2,6 +2,17 @@ suite: lint registry values
 templates:
   - fake.yaml
 tests:
+  - it: persistenceSuffix is not boolean
+    set:
+      registry:
+        image:
+          persistenceSuffix: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - registry.image.persistenceSuffix: Invalid type. Expected: boolean, given: string
   - it: imagePullSecrets is not array
     set:
       registry:
