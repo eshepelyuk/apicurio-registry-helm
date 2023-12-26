@@ -62,3 +62,23 @@ tests:
             values don't meet the specifications of the schema(s) in the following chart(s):
             apicurio-registry:
             - sync.extraVolumeMounts: Invalid type. Expected: array, given: string
+  - it: podSecurityContext is not object
+    set:
+      sync:
+        podSecurityContext: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - sync.podSecurityContext: Invalid type. Expected: object, given: string
+  - it: securityContext is not object
+    set:
+      sync:
+        securityContext: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - sync.securityContext: Invalid type. Expected: object, given: string

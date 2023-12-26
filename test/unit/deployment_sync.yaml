@@ -169,3 +169,23 @@ tests:
       - equal:
           path: spec.template.spec.imagePullSecrets[0].name
           value: mysecret
+  - it: podSecurityContext
+    set:
+      sync:
+        podSecurityContext:
+          runAsUser: 1001
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            runAsUser: 1001
+  - it: container securityContext
+    set:
+      sync:
+        securityContext:
+          runAsUser: 1001
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].securityContext
+          value:
+            runAsUser: 1001
