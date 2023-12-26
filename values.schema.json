@@ -31,6 +31,16 @@
         }
       }
     },
+    "podSecurityContext": {
+      "type": "object",
+      "title": "The pod securityContext Schema",
+      "properties": {}
+    },
+    "securityContext": {
+      "type": "object",
+      "title": "The container securityContext Schema",
+      "properties": {}
+    },
     "persistence": {
       "kafka": {
         "type": "object", "additionalProperties": false,
@@ -113,7 +123,9 @@
         "sql": {"$ref": "#/definitions/persistence/sql"},
         "imagePullSecrets": {"$ref": "#/definitions/imagePullSecrets"},
         "ingress": {"$ref": "#/definitions/ingress"},
-        "extraLabels": {"$ref": "#/definitions/labels", "title": "deployment and pod resources labels for registry"}
+        "extraLabels": {"$ref": "#/definitions/labels", "title": "deployment and pod resources labels for registry"},
+        "podSecurityContext": {"$ref": "#/definitions/podSecurityContext"},
+        "securityContext": {"$ref": "#/definitions/securityContext"}
       }
     },
     "sync": {
@@ -129,7 +141,9 @@
         "extraVolumeMounts": {"$ref": "#/definitions/volumeMounts", "title": "extra volume mounts for registry content sync"},
         "extraVolumes": {"$ref": "#/definitions/volumes", "title": "extra volumes for registry content sync"},
         "registryUrl": {"type": ["null", "string"], "default": null},
-        "extraLabels": {"$ref": "#/definitions/labels", "title": "deployment and pod resources labels for sync"}
+        "extraLabels": {"$ref": "#/definitions/labels", "title": "deployment and pod resources labels for sync"},
+        "podSecurityContext": {"$ref": "#/definitions/podSecurityContext"},
+        "securityContext": {"$ref": "#/definitions/securityContext"}
       }
     }
   }

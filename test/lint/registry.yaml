@@ -94,3 +94,23 @@ tests:
             values don't meet the specifications of the schema(s) in the following chart(s):
             apicurio-registry:
             - registry.extraLabels: Invalid type. Expected: object, given: integer
+  - it: podSecurityContext is not object
+    set:
+      registry:
+        podSecurityContext: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - registry.podSecurityContext: Invalid type. Expected: object, given: string
+  - it: securityContext is not object
+    set:
+      registry:
+        securityContext: "qwe"
+    asserts:
+      - failedTemplate:
+          errorMessage: |
+            values don't meet the specifications of the schema(s) in the following chart(s):
+            apicurio-registry:
+            - registry.securityContext: Invalid type. Expected: object, given: string

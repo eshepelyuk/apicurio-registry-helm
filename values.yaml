@@ -58,6 +58,14 @@ registry:
     annotations: {}
     labels: {}
 
+  # add podSecurityContext policy
+  podSecurityContext: {}
+    # fsGroup: 185
+    # runAsUser: 185
+    # runAsNonRoot: true
+
+  # securityContext policy
+  securityContext: {}
 sync:
   enabled: true
   # set imagePullSecret to pull image from an authenticated registry
@@ -91,3 +99,11 @@ sync:
     #     secretName: kafka-user
   # add extraLabels in deployment and pod objects
   extraLabels: {}
+  # add podSecurityContext policy
+  podSecurityContext: {}
+    # fsGroup: 185
+    # runAsUser: 185
+    # runAsNonRoot: true
+  
+  # securityContext policy
+  securityContext: {}

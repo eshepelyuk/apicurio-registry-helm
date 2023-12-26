@@ -233,3 +233,23 @@ tests:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/name: apicurio-registry
             testLabel: myLabel
+  - it: podSecurityContext
+    set:
+      registry:
+        podSecurityContext:
+          runAsUser: 1001
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            runAsUser: 1001
+  - it: container securityContext
+    set:
+      registry:
+        securityContext:
+          runAsUser: 1001
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].securityContext
+          value:
+            runAsUser: 1001

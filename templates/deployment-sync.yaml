@@ -34,8 +34,16 @@ spec:
       initContainers:
         {{- toYaml . | nindent 10 }}
       {{- end }}
+      {{- with .Values.sync.podSecurityContext }}
+      securityContext:
+        {{- toYaml .| nindent 8 }}
+      {{- end }}
       containers:
         - name: sync
+          {{- with .Values.sync.securityContext }}
+          securityContext:
+            {{- toYaml .| nindent 12 }}
+          {{- end }}
           image: {{ .Values.sync.image.registry }}/{{ .Values.sync.image.repository }}:{{ .Values.sync.image.tag }}
           {{- with .Values.sync.nodeSelector }}
           nodeSelector:
