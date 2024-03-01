@@ -17,7 +17,7 @@ registry:
   image:
     registry: "quay.io"
     repository: "apicurio/apicurio-registry"
-    tag: "2.4.14.Final"
+    tag: "2.5.8.Final"
     # Autodetect image suffix based on persistence type
     # the default is true, it is used by helpers.tpl to define the image to use
     persistenceSuffix: true
@@ -104,6 +104,5 @@ sync:
     # fsGroup: 185
     # runAsUser: 185
     # runAsNonRoot: true
-  
   # securityContext policy
   securityContext: {}
